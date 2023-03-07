@@ -1,0 +1,3 @@
+# CRUD PROJECT - REACT NATIVE + FIREBASE
+
+npm install
