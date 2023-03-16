@@ -12,8 +12,6 @@ export default function Add() {
     const [ desc, setDesc ] = useState('');
     const [titulo, setTitulo] = useState('');
     const [tipo, setTipo] = useState('');
-   
-
     
     function creator (){
 
