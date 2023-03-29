@@ -7,7 +7,8 @@ import Home from './src/screens/Home';
 import Add from './src/screens/Mov';
 import Detalhes from './src/screens/Detalhes';
 import Compra from './src/screens/Compra';
-import Notificacao from './src/screens/Notificacao'
+import Notificacao from './src/screens/Notificacao';
+import Imagens from './src/screens/Imagens';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,6 +23,7 @@ export default function App() {
         <Stack.Screen name="Detalhes" component={Detalhes}/>
         <Stack.Screen name= "Compra" component={Compra}/>
         <Stack.Screen name='notificacao' component={Notificacao}/>
+        <Stack.Screen name="Imagens" component={Imagens}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

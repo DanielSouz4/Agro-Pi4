@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Dimensions, Button, Alert, SafeAreaView, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-import { getProduct } from "../../components/banco";
+///import { getProduct } from "../../components/banco";
 import { getDocs, collection, deleteDoc, doc } from 'firebase/firestore';
 
 

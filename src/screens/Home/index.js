@@ -44,10 +44,14 @@ export default function Home({navigation}) {
     }
     function irNote(){
         navigation.navigate("notificacao")
-    };
+    }
+    //falta fazer a pagina menuLateral
+    function menuLateral(){
+        navigation.navigate("")
+    }
     function irAdd(){
         navigation.navigate("Add")
-    }
+    };
 
  return (
     <ScrollView style={styles.container}>
@@ -58,19 +62,23 @@ export default function Home({navigation}) {
 
                 <Text  style={{fontSize:22, paddingRight: 28, marginLeft: 14, color:'#33333'}}>Olá, seja bem vindo!</Text>
 
-                <View style={{ paddingHorizontal: 26}}>
+                <View style={{ paddingHorizontal: 4}}>
                     <TouchableOpacity onPress={() => irNote()}>
                         <AntDesign name="bells" size={26} color="#32CD32" />
+                        
                     </TouchableOpacity>
+                 
+                </View>
+                <View style = {{marginLeft: 4, marginRight:6}}>
                     <TouchableOpacity onPress={()=> irAdd()}>
                         <AntDesign name="pluscircleo" size={26} color="green" />
                     </TouchableOpacity>
-                    
-                    
                 </View>
 
                 <View style={{ backgroundColor: 'gray' ,borderRadius: 50, padding: 6}}>
-                    <AntDesign name="user" size={28} color="white" />
+                    <TouchableOpacity onPress={LogOff}>
+                        <AntDesign name="user" size={28} color="white" />
+                    </TouchableOpacity>
                 </View>
 
                 
@@ -83,7 +91,7 @@ export default function Home({navigation}) {
                             
                         </View>
                         <View style={styles.iconNav }>
-                            <TouchableOpacity onPress={() => navigation.navigate('Produtos')} ><Feather name='search' size={21} color='#90EE90'/></TouchableOpacity>
+                            <TouchableOpacity onPress={() => navigation.navigate('Produtos')} ><AntDesign name='bells' size={21} color='#90EE90'/></TouchableOpacity>
                         </View>
                         
                     </View>{/*Fim fim barra pesquisa */}
@@ -92,7 +100,7 @@ export default function Home({navigation}) {
 
         {/*Inicio Categorias*/}   
         <View style={styles.title02}>
-            <Text style={{fontSize: 26, marginHorizontal: 10, color:'#33333'}}>Categorias </Text>
+            <Text style={{fontSize: 26, marginHorizontal: 10, color:'#33333'}}>Categorias</Text>
             <View style={{left: 0}}><TouchableOpacity><Text style={styles.txtPress}>Exibir <AntDesign name="right" size={14} color="#32CD32" /></Text></TouchableOpacity></View>
         </View>
 
@@ -100,7 +108,7 @@ export default function Home({navigation}) {
         <FlatList 
         
         style={{maxHeight:width}}
-        pagingEnabled
+        //pagingEnabled
         horizontal
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
@@ -146,15 +154,15 @@ export default function Home({navigation}) {
             <View style={{flexDirection: 'row'}}>
                 <Text style={{padding: 10, fontSize: 26 }}>Ofertas Populares</Text>
             
-                <Text style={{color:'#32CD32', fontSize: 12, top: 20, left: 46}}>Ver mais</Text>
-                <View style={{top:20, left: 52}}><AntDesign name='right' size= {14} color = '#32CD32'/></View>
+                <Text style={{color:'#32CD32', fontSize: 12, top: 20, left: 40}}>Ver mais</Text>
+                <View style={{top:20, left: 50,  }}><AntDesign name='right' size= {14} color = '#32CD32'/></View>
                 
             </View>
             {/*Inicio da FlatList 'Ofertas Populares'*/}
             <SafeAreaView>
                 <FlatList
                     style={{maxHeight:width}}
-                    pagingEnabled
+                    
                     horizontal
                     showsVerticalScrollIndicator={false}
                     showsHorizontalScrollIndicator={false}
@@ -181,7 +189,7 @@ export default function Home({navigation}) {
                                     <View style={{flex:1 , flexDirection: 'row', marginTop: 0, width: 140, }}>
                                     <View style={{right: 380}}><AntDesign name="star" size={19} color="#FFC700"  /></View>
                                     <Text style={{right: 20, paddingRight: 0, color: 'gray'}}>0 Avaliações</Text>
-                                    <Text style={{left: 104, color:'#333333', fontSize: 18}}>R$ {item.preco}</Text>
+                                    <Text style={{left: 90, color:'#333333', fontSize: 18}}>R$ {item.preco}</Text>
                                     </View>
 
                                     </View>
@@ -211,8 +219,6 @@ export default function Home({navigation}) {
 
         <FlatList 
         data={data}
-        
-        renderItem={({item})=><OnBoardingItem item ={item}/>}
 
         
 
@@ -317,6 +323,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFF',
         elevation: 1,
         marginVertical: 5,
+        marginHorizontal: 5,
         marginHorizontal:5,
         borderRadius: 10,
         padding: 30,
@@ -398,6 +405,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
         backgroundColor: '#fee',
         
+        
     
       },
       containerProdutos: {
@@ -454,7 +462,7 @@ const styles = StyleSheet.create({
         height: 37.5,
         width: 38,
         justifyContent: 'center',
-        backgroundColor: '#fff', 
+        backgroundColor: '#ffff', 
         marginLeft: 8,
         borderRadius: 8,
         paddingHorizontal: 20,
@@ -480,7 +488,8 @@ const styles = StyleSheet.create({
         marginLeft: 20,
         borderRadius: 20,
         marginHorizontal: 10,
-        backgroundColor: '#fee'
+        backgroundColor: '#fee',
+        
         
     
       },
@@ -495,7 +504,7 @@ const styles = StyleSheet.create({
       color: '#32CD32',
       top: 6.4,
       fontSize: 16,
-      paddingHorizontal: 150
+      paddingHorizontal: '30%'
       
     },
     //Teate Todos os produtos
