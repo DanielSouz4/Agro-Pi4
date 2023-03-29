@@ -67,7 +67,7 @@ export default function Note (){
 
                           <View style={{ flexDirection: 'column' }}>
                               <Text style={{fontSize: 16, fontWeight: 'bold', color:'#333333', paddingLeft: 22}}>{item.titulo}</Text>
-                              <Image source={{uri:item.img}} style={styles.image} />{/*Imagem não está aparecendo :( */}
+                              <Image source={{uri:item.link}} style={styles.image} />{/*Imagem não está aparecendo :( */}
                               <Text style={{ padding: 2, color: '333333', fontWeight: 'bold', fontSize: 16}}>Nome:  {item.nomeComprador}</Text>
 
                               <Text style={{ color: '#333333', fontWeight: 'bold', fontSize: 16 }}>endereço:  {item.enderreco}</Text>

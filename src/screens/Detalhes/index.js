@@ -17,8 +17,8 @@ export default function Detalhes({ route, navigation}) {
   const img = route.params.img;
   const idVendedor = route.params.idUser;
 
-  function irCompra(id,titulo,idVendedor){
-    navigation.navigate("Compra",{id:id,titulo:titulo,idVendedor:idVendedor})
+  function irCompra(id,titulo,idVendedor,img){
+    navigation.navigate("Compra",{id:id,titulo:titulo,idVendedor:idVendedor,img:img})
   }
 
   return (
@@ -44,7 +44,7 @@ export default function Detalhes({ route, navigation}) {
 
       <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', padding: 15 }}>
         <TouchableOpacity 
-        onPress={() => irCompra(id,titulo,idVendedor)}
+        onPress={() => irCompra(id,titulo,idVendedor,img)}
         style={{ backgroundColor: '#32CD32', width: '80%', alignItems: 'center', justifyContent: 'center', height: 50, borderRadius: 10, borderWidth: 1 }}><Text style={{ fontWeight: 'bold', fontSize: 20, color: '#000', padding: 5 }}>COMPRAR</Text></TouchableOpacity>
       </View>
 

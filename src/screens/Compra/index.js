@@ -12,6 +12,7 @@ export default function Comprar({route}){
     const [mensagem,setMensagem] = useState('');
     const vendedor = route.params.idVendedor;
     const titulo = route.params.titulo;
+    const img= route.params.img;
 
     function creator (){
 
@@ -22,6 +23,7 @@ export default function Comprar({route}){
             idVendedor:vendedor,
             titulo:titulo,
             nomeComprador:nome,
+            link:img,
           }).then(()=>{
             alert("Pedido Realizado Com Sucesso!!")
 
