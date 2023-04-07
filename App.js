@@ -19,10 +19,10 @@ export default function App() {
         <Stack.Screen name="Home" component={Home} options={{headerShown: false}} />
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="Login" component={Login} options={{headerShown: false}} />
-        <Stack.Screen name="Add" component={Add}/>
-        <Stack.Screen name="Detalhes" component={Detalhes}/>
+        <Stack.Screen name="Add" component={Add} options={{headerShown: false}}/>
+        <Stack.Screen name="Detalhes" component={Detalhes} options={{headerShown: false}}/>
         <Stack.Screen name= "Compra" component={Compra}/>
-        <Stack.Screen name='notificacao' component={Notificacao}/>
+        <Stack.Screen name='notificacao' component={Notificacao} options={{headerShown: false}}/>
         <Stack.Screen name="Imagens" component={Imagens}/>
       </Stack.Navigator>
     </NavigationContainer>

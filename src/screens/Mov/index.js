@@ -55,7 +55,7 @@ export default function Add() {
       };
       useEffect(()=>{
         const uploadImage = async()=>{
-            //trtanfroma o arquivo de imagem em blop image
+            //trasforma o arquivo de imagem em blop image
             const blobImage = await new Promise ((resolve,reject)=>{
                 const xhr = new XMLHttpRequest();
                 xhr.onload=function(){
@@ -119,8 +119,10 @@ export default function Add() {
 
 
  return (
-    <View style={{alignContent:'center',alignItems:'center'}}>
+    <View style={{alignContent:'center',alignItems:'center', marginTop:10}}>
+        <View style={{marginTop:20}}>
         <AntDesign name="isv" size={80} color="green" />
+        </View>
         <Text style={styles.header}>Cadastro de Produto</Text>
 
         <TextInput 
@@ -158,7 +160,7 @@ export default function Add() {
                  onPress={()=>setTipo("Verdura")}
                  title="Verdura"
                  color="gray"
-                 accessibilityLabel="MArque esta opção se seu produto for un tipo de verdura"
+                 accessibilityLabel="Marque esta opção se seu produto for un tipo de verdura"
              />
              <Button
                  onPress={()=>setTipo("Legume")}
@@ -255,10 +257,14 @@ const styles = StyleSheet.create({
         marginTop: 5,
         borderRadius: 10
     },
-    txtButton: {
-        color: '#FFF',
-        fontSize: 18,
-        fontWeight: 'bold',
+     button: {
+        backgroundColor: '#32CD32',
+        width: '90%',
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 10,
+        borderRadius: 10
     },
     txtButton2: {
         color: 'black',
