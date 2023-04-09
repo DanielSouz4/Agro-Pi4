@@ -9,14 +9,14 @@ import Home from './src/screens/Home';
 import Add from './src/screens/Mov';
 import Detalhes from './src/screens/Detalhes';
 import Compra from './src/screens/Compra';
-<<<<<<< HEAD
-import Notificacao from './src/screens/Notificacao';
+//npm install @react-navigation/bottom-tabs
+//import Notificacao from './src/screens/Notificacao';
 import Imagens from './src/screens/Imagens';
-=======
+
 import Notificacao from './src/screens/Notificacao'
 import { ScreenStackHeaderSearchBarView } from 'react-native-screens';
 
->>>>>>> 6f6f00c23ab93c5909048a8beba6230ad8ec8843
+
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -113,7 +113,7 @@ function Tabs(){
     }
   }
     />
-    <Tab.Screen name="Post" component={Compra} 
+    <Tab.Screen name="Post" component={Add} 
       options={{
         tabBarIcon: ({focused}) => (
         
@@ -172,7 +172,7 @@ function Tabs(){
           />
           <Text
             style={{color: focused ? '#e32f45' : '#748c94',fontSize:12}}
-          >CHAT</Text>
+          >Notificação</Text>
         </View>
 
       )
@@ -186,9 +186,9 @@ function Tabs(){
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="Login">
         <Stack.Screen name="Home" component={Tabs} options={{headerShown: false}}  />
-        <Stack.Screen name="Register" component={Register} />
+        <Stack.Screen name="Register" component={Register} options={{headerShown:false}} />
         <Stack.Screen name="Login" component={Login} options={{headerShown: false}} />
         <Stack.Screen name="Add" component={Add} options={{headerShown: false}}/>
         <Stack.Screen name="Detalhes" component={Detalhes} options={{headerShown: false}}/>
