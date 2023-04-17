@@ -1,11 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { Dimensions, Button, Alert, SafeAreaView, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { Dimensions, Button, Alert, SafeAreaView, StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 ///import { getProduct } from "../../components/banco";
 import { getDocs, collection, deleteDoc, doc } from 'firebase/firestore';
 
-
+import {AntDesign} from '@expo/vector-icons';
 
 
 export default function Detalhes({ route, navigation}) {
@@ -23,7 +23,7 @@ export default function Detalhes({ route, navigation}) {
 
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize: 25, fontWeight: 'bold' }}>{titulo}</Text>
+      {/* <Text style={{ fontSize: 25, fontWeight: 'bold' }}>{titulo}</Text> */}
       <View>
         <Image
           style={styles.image}
@@ -32,20 +32,32 @@ export default function Detalhes({ route, navigation}) {
           }}
         />
       </View>
-      <Text style={{ fontSize: 26, fontWeight: 'bold', color:'#33333' }}>Descrição</Text>
-      <View style={{ paddingTop: 10 }}>
-        <Text style={{ fontSize: 25, padding: 15 }}>{desc}</Text>
-        <Text>{idVendedor}</Text>
-      </View>
-      <Text style={{ fontSize: 26, color: '#333333', paddingTop: 10 }}>R${preco}</Text>
-      <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+
+      <View style={{ padding: 10}}>
+  
+        <View style={{ padding: 5}}>
+
+          <Text style={{ fontSize: 22, paddingBottom: 10}}>{desc}</Text>
+          <Text>ID: {idVendedor}</Text>
+
+          <View style={{paddingTop: 15}}>
+            <TouchableOpacity onPress={() => {Alert.alert('Avaliações', 'Pressionado!!!')}}>
+              <Text style={{color: 'gray'}}><AntDesign name='star' color={'#FFC700'} size={17}/> 0 Avaliações</Text>
+            </TouchableOpacity>
+          </View>
+
+        </View>
+
+        <Text style={{ fontSize: 26, color: '#333333', padding: 5, fontWeight: '480' }}>R${preco}</Text>
+      
 
       </View>
 
       <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', padding: 15 }}>
         <TouchableOpacity 
         onPress={() => irCompra(id,titulo,idVendedor,img)}
-        style={{ backgroundColor: '#32CD32', width: '80%', alignItems: 'center', justifyContent: 'center', height: 50, borderRadius: 10, borderWidth: 1 }}><Text style={{ fontWeight: 'bold', fontSize: 20, color: '#000', padding: 5 }}>COMPRAR</Text></TouchableOpacity>
+        style={{ backgroundColor: '#32CD32', width: 180, alignItems: 'center', justifyContent: 'center', height: 48, borderRadius: 12, borderWidth: 1, borderColor: '#2F4F4F'}}><Text style={{ fontWeight: '400', fontSize: 20, color: '#333333', padding: 5 }}>COMPRAR</Text>
+        </TouchableOpacity>
       </View>
 
       <StatusBar style="auto" />
@@ -57,7 +69,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    marginTop: 10,
+    marginTop: 36,
   },
 
   image: {

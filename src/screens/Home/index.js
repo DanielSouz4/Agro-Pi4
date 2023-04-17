@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View,Image, Text, StyleSheet, TouchableOpacity, FlatList, Dimensions, TextInput, ScrollView } from 'react-native';
+import { View,Image, Alert, Text, StyleSheet, TouchableOpacity, FlatList, Dimensions, TextInput, ScrollView } from 'react-native';
 import { FontAwesome5, AntDesign } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { getDocs, collection, deleteDoc, doc } from 'firebase/firestore';
@@ -10,6 +10,47 @@ import {Feather} from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const {width}=Dimensions.get('window');
+
+
+const imgCategoria = [
+    {
+      id:1,
+      url:'https://cdn-icons-png.flaticon.com/512/5371/5371284.png',
+      Comment: 'Frutas'
+      
+    },
+    {
+      id:2,
+      url:'https://cdn-icons-png.flaticon.com/512/3332/3332099.png',
+      Comment: 'Grãos'
+      
+    },
+    {
+      id:3,
+      url:'https://cdn-icons-png.flaticon.com/512/776/776500.png',
+      Comment: 'Legumes'
+    },
+    {
+      id:4,
+      url:'https://cdn-icons-png.flaticon.com/512/5260/5260841.png',
+      Comment: 'Verdura'
+    },
+    {
+      id:5,
+      url:'https://cdn-icons-png.flaticon.com/512/2153/2153788.png',
+      Comment: 'Verdura'
+    }
+  ]
+  const OnBoardingItem = ({item}) => {
+    return(
+      <View style={{}}>
+        <TouchableOpacity onPress={() => {Alert.alert('Categorias', 'Clicou :)')}}  style={{justifyContent:'center', alignItems:'center'}}>
+          <Image source={{uri:item.url}} style={styles.image02} />
+          <Text style={{justifyContent: 'center'}}>{item.Comment}</Text>
+        </TouchableOpacity>
+      </View>
+    )
+  };
 
 export default function Home({navigation}) {
 
@@ -84,6 +125,7 @@ export default function Home({navigation}) {
                 
 
             </View>
+            
             <View style={styles.headerNavBar}>{/*Inicio barra pesquisa */}
                         <View style={styles.navBar}>
                             <Feather name = 'search' size={24} color = '#90EE90'></Feather>
@@ -104,11 +146,25 @@ export default function Home({navigation}) {
             <View style={{left: 0}}><TouchableOpacity><Text style={styles.txtPress}>Exibir <AntDesign name="right" size={14} color="#32CD32" /></Text></TouchableOpacity></View>
         </View>
 
-        <SafeAreaView style={{marginTop: 0}}>
-        <FlatList 
+        <View style={{}}>
+      
+            <FlatList 
+            data={imgCategoria}
+            style={{maxHeight:width}}
+            pagingEnabled={false}
+            horizontal
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
+            keyExtractor={(item)=> String(item?.id)}
+            renderItem={({item})=><OnBoardingItem item ={item}/>}
+            />
+        </View>
+         
+        
+        {/* <FlatList 
         
         style={{maxHeight:width}}
-        //pagingEnabled
+        
         horizontal
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
@@ -121,7 +177,7 @@ export default function Home({navigation}) {
                         ({ item }) => (
                         <ScrollView> 
                     
-                    {/* :) */}
+                    
                         <View style={{marginTop: 20}}>
                         <TouchableOpacity onPress={() => irDetalhes(item.id,item.descricao,item.preco,item.titulo,item.img,item.idUser)} style={{justifyContent:'center', alignItems:'center'}}>
                             <Image source={{uri:item.img}} style={styles.image02} />
@@ -133,9 +189,7 @@ export default function Home({navigation}) {
 
                         
                         )}
-            //
-                            
-            //
+            
 
                     keyExtractor={item => item.id}
                     showsVerticalScrollIndicator={false}
@@ -145,13 +199,13 @@ export default function Home({navigation}) {
                             Nenhum Dado Encontrado!
                         </Text>
                     )}
-                />
-                </SafeAreaView>
+                /> */}
+                
             {/*Fim da FlatList Categorias*/}
             
             
             {/*Ofertas Populares*/}
-            <View style={{flexDirection: 'row'}}>
+            <View style={{flexDirection: 'row', paddingTop: 26}}>
                 <Text style={{padding: 10, fontSize: 26 }}>Ofertas Populares</Text>
             
                 <Text style={{color:'#32CD32', fontSize: 12, top: 20, left: 40}}>Ver mais</Text>
@@ -498,7 +552,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: '#fff',
         width: '100%',
-        marginTop: 40
+        marginTop: 40,
+        marginBottom: 10
     },
     txtPress:{
       color: '#32CD32',
