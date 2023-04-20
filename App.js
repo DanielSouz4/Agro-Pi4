@@ -9,8 +9,12 @@ import Home from './src/screens/Home';
 import Add from './src/screens/Mov';
 import Detalhes from './src/screens/Detalhes';
 import Compra from './src/screens/Compra';
+import { Favoritos } from './src/screens/favoritos';
+
 import Notificacao from './src/screens/Notificacao'
 import { ScreenStackHeaderSearchBarView } from 'react-native-screens';
+
+import Imagens from './src/screens/Imagens'
 
 
 const Stack = createNativeStackNavigator();
@@ -30,7 +34,7 @@ const CustomTabBarButton = ({children, onPress}) => (
       width:70,
       height:70,
       borderRadius:35,
-      backgroundColor:'#e32f45',
+      backgroundColor:'#32CD32',
      
     }} 
     > 
@@ -85,13 +89,13 @@ function Tabs(){
     }
   }
   />
-    <Tab.Screen name="Find" component={Detalhes} options={{
+    <Tab.Screen name="Favoritos" component={Favoritos} options={{
       
       tabBarIcon: ({focused}) => (
         <View style={{alignItems:'center',justifyContent:'center', top:2}}>
           
           <Image 
-            source={require('./src/images/icons/search.png')}
+            source={require('./src/images/icons/heart.png')}
             resizeMode='contain'
             style={{
             width:25,
@@ -101,14 +105,14 @@ function Tabs(){
           />
           <Text
             style={{color: focused ? '#e32f45' : '#748c94',fontSize:12}}
-          >PROCURAR</Text>
+          >FAVORITOS</Text>
         </View>
 
       )
     }
   }
     />
-    <Tab.Screen name="Post" component={Compra} 
+    <Tab.Screen name="Post" component={Add} 
       options={{
         tabBarIcon: ({focused}) => (
         
@@ -118,7 +122,7 @@ function Tabs(){
             style={{
               with:30,
               height:30,
-              tintColor:'#fff',
+              tintColor:focused ? '#ffff' : '#f2f2f2',
             }}
           
           />
@@ -189,6 +193,7 @@ export default function App() {
         <Stack.Screen name="Detalhes" component={Detalhes}/>
         <Stack.Screen name= "Compra" component={Compra}/>
         <Stack.Screen name='notificacao' component={Notificacao}/>
+        <Stack.Screen name="Imagens" component={Imagens}/>
       </Stack.Navigator>
       
       
