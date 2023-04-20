@@ -10,7 +10,11 @@
     "eject": "expo eject"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@react-native-firebase/app": "^17.4.2",
+=======
+    "@react-native-async-storage/async-storage": "^1.18.1",
+>>>>>>> 42624987c92a71d25e32dfeb313e8ecf6d371702
     "@react-navigation/bottom-tabs": "^6.5.7",
     "@react-navigation/native": "^6.0.11",
     "@react-navigation/native-stack": "^6.7.0",

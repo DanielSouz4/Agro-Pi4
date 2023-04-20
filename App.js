@@ -9,13 +9,21 @@ import Home from './src/screens/Home';
 import Add from './src/screens/Mov';
 import Detalhes from './src/screens/Detalhes';
 import Compra from './src/screens/Compra';
+<<<<<<< HEAD
 //npm install @react-navigation/bottom-tabs
 //import Notificacao from './src/screens/Notificacao';
 import Imagens from './src/screens/Imagens';
+=======
+import { Favoritos } from './src/screens/favoritos';
+>>>>>>> 42624987c92a71d25e32dfeb313e8ecf6d371702
 
 import Notificacao from './src/screens/Notificacao'
 import { ScreenStackHeaderSearchBarView } from 'react-native-screens';
 
+<<<<<<< HEAD
+=======
+import Imagens from './src/screens/Imagens'
+>>>>>>> 42624987c92a71d25e32dfeb313e8ecf6d371702
 
 
 const Stack = createNativeStackNavigator();
@@ -35,7 +43,7 @@ const CustomTabBarButton = ({children, onPress}) => (
       width:70,
       height:70,
       borderRadius:35,
-      backgroundColor:'#e32f45',
+      backgroundColor:'#32CD32',
      
     }} 
     > 
@@ -90,13 +98,13 @@ function Tabs(){
     }
   }
   />
-    <Tab.Screen name="Find" component={Detalhes} options={{
+    <Tab.Screen name="Favoritos" component={Favoritos} options={{
       
       tabBarIcon: ({focused}) => (
         <View style={{alignItems:'center',justifyContent:'center', top:2}}>
           
           <Image 
-            source={require('./src/images/icons/search.png')}
+            source={require('./src/images/icons/heart.png')}
             resizeMode='contain'
             style={{
             width:25,
@@ -106,7 +114,7 @@ function Tabs(){
           />
           <Text
             style={{color: focused ? '#e32f45' : '#748c94',fontSize:12}}
-          >PROCURAR</Text>
+          >FAVORITOS</Text>
         </View>
 
       )
@@ -123,7 +131,7 @@ function Tabs(){
             style={{
               with:30,
               height:30,
-              tintColor:'#fff',
+              tintColor:focused ? '#ffff' : '#f2f2f2',
             }}
           
           />
