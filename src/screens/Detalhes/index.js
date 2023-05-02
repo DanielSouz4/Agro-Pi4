@@ -11,7 +11,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 
-import { isFavorite,saveFavorite, removeItem} from '../../storag/storage';
+import { isFavorite,saveFavorite, removeItem,getFavorites} from '../../storag/storage';
 
 
 

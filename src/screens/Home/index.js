@@ -244,11 +244,8 @@ export default function Home({navigation}) {
                                 </View>
                             </TouchableOpacity>
                         
-                    </View>
-                    
-
-                        
-                        )}
+                    </View> 
+                    )}
             //
                             
             //

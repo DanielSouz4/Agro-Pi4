@@ -5,14 +5,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 //Remover um favoritos da lista
 
 export async  function getFavorites(key){
-    const favorites = await AsyncStorage.getItem(key)
+    const favorites = await localStorage.getItem(key)
     return JSON.parse(favorites) || [];
 }
 
 export async function saveFavorite(key,newItem){
     let myfavorites = await getFavorites(key);
 
-    let hasItem = myfavorites.some( item => item.id === newItem.id)
+    let hasItem = myfavorites.includes( item => item.id === newItem.id)
+
 
     if(hasItem){
         console.log("ESSE ITEM JA ESTA SALVO NA SUA LISTA")
