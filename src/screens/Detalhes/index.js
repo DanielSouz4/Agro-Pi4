@@ -1,13 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState,useLayoutEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
-
-
-///import { getProduct } from "../../components/banco";
-import { getDocs, collection, deleteDoc, doc } from 'firebase/firestore';
-
-import {AntDesign} from '@expo/vector-icons';
-
 import { Dimensions, Button, Alert, SafeAreaView,
    StyleSheet, Text, View, Image, TouchableOpacity,ScrollView,Pressable,Share
 } from 'react-native';
@@ -20,7 +13,6 @@ import { Feather } from '@expo/vector-icons';
 
 import { isFavorite,saveFavorite, removeItem} from '../../storag/storage';
 
->>>>>>> 42624987c92a71d25e32dfeb313e8ecf6d371702
 
 
 export default function Detalhes({ route }) {
@@ -37,7 +29,7 @@ export default function Detalhes({ route }) {
 
     navigation.setOptions({
       headerRight: () =>(
-        <Pressable onPress={()=> recebeFavoritos(route.params.data)}>
+        <Pressable onPress={null}>
           { favorite ? (
           <Entypo 
              name='heart'
@@ -94,51 +86,33 @@ export default function Detalhes({ route }) {
   }
 
   return (
-    <View style={styles.container}>
-      {/* <Text style={{ fontSize: 25, fontWeight: 'bold' }}>{titulo}</Text> */}
-      <View>
-        <Image
-          style={styles.image}
-          source={{
-            uri: img
-          }}
-        />
-      </View>
-
-      <View style={{ padding: 10}}>
-  
-        <View style={{ padding: 5}}>
-
-          <Text style={{ fontSize: 22, paddingBottom: 10}}>{desc}</Text>
-          <Text>ID: {idVendedor}</Text>
-
-          <View style={{paddingTop: 15}}>
-            <TouchableOpacity onPress={() => {Alert.alert('Avaliações', 'Pressionado!!!')}}>
-              <Text style={{color: 'gray'}}><AntDesign name='star' color={'#FFC700'} size={17}/> 0 Avaliações</Text>
-            </TouchableOpacity>
-          </View>
-
-        </View>
-
-        <Text style={{ fontSize: 26, color: '#333333', padding: 5, fontWeight: '480' }}>R${preco}</Text>
-      
+    <SafeAreaView>
+        <ScrollView>
+            <View style={styles.imageContainer}>
+                <Image style={styles.image} source={img} />
+            </View>
+              <View style={styles.infoContainer} >
+                  <Text style={styles.frt}>{titulo}</Text>
+                  <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
+                   <Text style={styles.name}>{titulo}</Text>
+                  
+                  <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-evenly'}}>
+                
+                    <Pressable onPress={compartilhar}>
+                      <Feather 
+                       name='share-2'
+                       size={30} 
+                       color='#121212'
+                       style={{paddingRight:25}}
+                       />
 
                     </Pressable>
                   </View>
                 </View>
 
-<<<<<<< HEAD
-      <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', padding: 15 }}>
-        <TouchableOpacity 
-        onPress={() => irCompra(id,titulo,idVendedor,img)}
-        style={{ backgroundColor: '#32CD32', width: 180, alignItems: 'center', justifyContent: 'center', height: 48, borderRadius: 12, borderWidth: 1, borderColor: '#2F4F4F'}}><Text style={{ fontWeight: '400', fontSize: 20, color: '#333333', padding: 5 }}>COMPRAR</Text>
-        </TouchableOpacity>
-      </View>
-=======
                 <Text style={styles.price} >{preco} R$</Text>
                 <Text style={styles.desc}>Descrição:</Text>
                 <Text style={styles.description}>{desc}</Text>
->>>>>>> 42624987c92a71d25e32dfeb313e8ecf6d371702
 
                 <TouchableOpacity style={styles.button}>
                   <Text style={styles.buttonText}>Comprar</Text>
@@ -157,13 +131,6 @@ export default function Detalhes({ route }) {
 }
 
 const styles = StyleSheet.create({
-<<<<<<< HEAD
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    marginTop: 36,
-  },
-=======
     imageContainer: {
       alignItems: 'center',
       justifyContent: 'center',
@@ -178,7 +145,6 @@ const styles = StyleSheet.create({
       fontSize: 20,
       color:'#0f6e3f',
       fontWeight:'700'
->>>>>>> 42624987c92a71d25e32dfeb313e8ecf6d371702
 
     },
     infoContainer: {

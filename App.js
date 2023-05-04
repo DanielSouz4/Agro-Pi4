@@ -9,21 +9,14 @@ import Home from './src/screens/Home';
 import Add from './src/screens/Mov';
 import Detalhes from './src/screens/Detalhes';
 import Compra from './src/screens/Compra';
-<<<<<<< HEAD
 //npm install @react-navigation/bottom-tabs
 //import Notificacao from './src/screens/Notificacao';
 import Imagens from './src/screens/Imagens';
-=======
-import { Favoritos } from './src/screens/favoritos';
->>>>>>> 42624987c92a71d25e32dfeb313e8ecf6d371702
+import Filter from './src/screens/Filter';
 
 import Notificacao from './src/screens/Notificacao'
 import { ScreenStackHeaderSearchBarView } from 'react-native-screens';
 
-<<<<<<< HEAD
-=======
-import Imagens from './src/screens/Imagens'
->>>>>>> 42624987c92a71d25e32dfeb313e8ecf6d371702
 
 
 const Stack = createNativeStackNavigator();
@@ -98,7 +91,7 @@ function Tabs(){
     }
   }
   />
-    <Tab.Screen name="Favoritos" component={Favoritos} options={{
+    {/* <Tab.Screen name="Favoritos" component={Favoritos} options={{
       
       tabBarIcon: ({focused}) => (
         <View style={{alignItems:'center',justifyContent:'center', top:2}}>
@@ -120,7 +113,7 @@ function Tabs(){
       )
     }
   }
-    />
+    /> */}
     <Tab.Screen name="Post" component={Add} 
       options={{
         tabBarIcon: ({focused}) => (
@@ -202,7 +195,8 @@ export default function App() {
         <Stack.Screen name="Detalhes" component={Detalhes} options={{headerShown: false}}/>
         <Stack.Screen name= "Compra" component={Compra}/>
         <Stack.Screen name='notificacao' component={Notificacao} options={{headerShown: false}}/>
-        <Stack.Screen name="Imagens" component={Imagens}/>
+        {/* <Stack.Screen name="Imagens" component={Imagens}/> */}
+        <Stack.Screen name="Filter" component={Filter}/>
       </Stack.Navigator>
       
       

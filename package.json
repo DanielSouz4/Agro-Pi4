@@ -10,11 +10,8 @@
     "eject": "expo eject"
   },
   "dependencies": {
-<<<<<<< HEAD
-    "@react-native-firebase/app": "^17.4.2",
-=======
+    "@expo/webpack-config": "^18.0.1",
     "@react-native-async-storage/async-storage": "^1.18.1",
->>>>>>> 42624987c92a71d25e32dfeb313e8ecf6d371702
     "@react-navigation/bottom-tabs": "^6.5.7",
     "@react-navigation/native": "^6.0.11",
     "@react-navigation/native-stack": "^6.7.0",
@@ -26,6 +23,7 @@
     "react-dom": "17.0.2",
     "react-native": "0.68.2",
     "react-native-document-picker": "^8.2.0",
+    "react-native-image-slider-box": "^2.0.7",
     "react-native-safe-area-context": "^4.3.1",
     "react-native-screens": "^3.15.0",
     "react-native-web": "0.17.7",
