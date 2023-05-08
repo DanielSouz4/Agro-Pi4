@@ -62,29 +62,27 @@ export default function Note (){
               data={data}
               renderItem={
                   ({ item }) => (
-                      <View style={{paddingBottom: 60, paddingLeft: 10}}>
+                      <View style={{paddingBottom: 10, paddingLeft: 5, paddingTop: 10}}>
                           
 
-                          <View style={{ flexDirection: 'column' }}>
-                              <Text style={{fontSize: 16, fontWeight: 'bold', color:'#333333', paddingLeft: 22}}>{item.titulo}</Text>
-                              <Image source={{uri:item.link}} style={styles.image} />{/*Imagem não está aparecendo :( */}
-                              <Text style={{ padding: 2, color: '333333', fontWeight: 'bold', fontSize: 16}}>Nome:  {item.nomeComprador}</Text>
+                          <View style={{ flexDirection: 'column', backgroundColor: '#ffff',elevation: 20 }}>
+                              <Text style={styles.titulo}>{item.titulo}</Text>
+                              <Image source={{uri:item.link}} style={styles.image} />
+                              <Text style={{ padding: 2, color: '333333', fontWeight: 'bold', fontSize: 16, paddingLeft: 10}}>Nome:  {item.nomeComprador}</Text>
 
-                              <Text style={{ color: '#333333', fontWeight: 'bold', fontSize: 16 }}>endereço:  {item.enderreco}</Text>
-                              <Text style={{color:'#333333', fontWeight: 'bold', fontSize: 16}}>Mensagem(Opcional): {item.mensagem}</Text>
-
-                          </View>
-
-                          <View style={styles.itemButtons}>
+                              <Text style={{ color: '#333333', fontWeight: 'bold', fontSize: 16, paddingLeft: 10 }}>endereço:  {item.enderreco}</Text>
+                              <Text style={{color:'#333333', fontWeight: 'bold', fontSize: 16, paddingLeft: 10}}>Mensagem(Opcional): {item.mensagem}</Text>
+                            
+                              <View style={styles.itemButtons}>
                               <TouchableOpacity
                                   //onPress={() => irDetalhes(item.id, item.descricao, item.preco, item.titulo, item.img, item.idUser)}
                               >
                                   <AntDesign name="eye" size={26} color="#32CD42" />
                               </TouchableOpacity>
-
-                        
-
                           </View>
+                          </View>
+
+                          
                       </View>
                   )}
               keyExtractor={item => item.id}
@@ -109,8 +107,8 @@ const styles = StyleSheet.create({
   },
 
   image: {
-    width: 85,
-        height: 85,
+    width: 140,
+        height: 140,
         marginLeft: 8,
         borderRadius: 10,
         backgroundColor: '#fee',
@@ -132,4 +130,14 @@ const styles = StyleSheet.create({
     fontSize: 20,
   
 },
+    titulo: {
+        fontSize: 18, 
+        fontWeight: 'bold', 
+        color:'#333333', 
+        paddingLeft: 20
+    },
+    itemButtons: {
+        paddingLeft: 10,
+
+    }
 })

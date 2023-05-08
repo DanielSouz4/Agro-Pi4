@@ -104,8 +104,7 @@ export default function Login({navigation}) {
         <TextInput 
             value={email}
             onChangeText={setEmail}
-            autoCorrect={false}
-            style={styles.input}
+            style={styles.input2}
             placeholder="Digite seu email..."
             placeholderTextColor="#32CD32"
         />
@@ -115,7 +114,7 @@ export default function Login({navigation}) {
             secureTextEntry={true}
             autoCorrect={false}
             onChangeText={setPassword}
-            style={styles.input}
+            style={styles.input2}
             placeholderTextColor="#32CD32"
             placeholder="Digite sua senha..."
            // placeholderTextColor="#FFF"
@@ -177,6 +176,14 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         fontSize: 20,
         
+    },
+    input2: {
+        width: '90%',
+        height: 40,
+        borderColor: '#000000',
+        borderBottomWidth: 1,
+        marginBottom: 36,
+        fontSize: 20
     },
     button: {
         backgroundColor: '#32CD32',

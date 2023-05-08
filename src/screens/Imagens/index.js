@@ -1,124 +1,116 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
-import { View,Text,TouchableOpacity,Button,StyleSheet,Image, TextInput } from "react-native";
-import{db,auth,storage} from '../../components/config';
-import * as ImagePicker from 'expo-image-picker';
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+// import React, { useState,useEffect } from "react";
+// import { View,TouchableOpacity,Text,Button,StyleSheet,ScrollView,SafeAreaView,FlatList,Dimensions } from "react-native";
+// //import {collection,addDoc,getDocs,getFirestore,query,where,onSnapshot} from 'firebase/firestore';
+// import {collection,addDoc,getDocs,getFirestore,query,where,onSnapshot} from 'firebase/firestore';
+
+// import db from '../../components/config';
+// import { useNavigation } from "@react-navigation/native";
 
 
-export default function App() {
-    const [title,setTitle] = useState(null);
-    const [picture,setPicture] = useState(null);
-    const [image,setImage] = useState(null);
-    const [link,setLink] = useState(null);
 
-    const pickImage = async () => {
-        // No permissions request is necessary for launching the image library
-        let result = await ImagePicker.launchImageLibraryAsync({
-          mediaTypes: ImagePicker.MediaTypeOptions.All,
-          allowsEditing: true,
-          aspect: [4, 3],
-          quality: 1,
-        });
+
+
+// export default function Filter ({route}){
+//     const {width}=Dimensions.get('window');
+//     const [data,setData] = useState([]);
+//     const [tipo, setTipo]= useState('');
+//     //const tipo = route.params.tipo
+//     setTipo("Fruta");
+//     useEffect(() => {
+//         getDocs(collection(db, 'anuncios'),where("tipoProduto", "==", tipo)).then(
+//             (docSnap) => {
+//                 const users = [];
+//                 docSnap.forEach((doc) => {
+//                     users.push({
+//                         ...doc.data(),
+//                         id: doc.id
+//                     })
+//                 })
+//                 setData(users);
+//             });
+//     },);
+//     return(
+//         <View>
+//           <FlatList
+//               data={data}
+//               renderItem={
+//                   ({ item }) => (
+//                       <View style={{paddingBottom: 10, paddingLeft: 5, paddingTop: 10}}>
+                          
+
+//                           <View style={{ flexDirection: 'column', backgroundColor: '#ffff',elevation: 20 }}>
+//                               <Text style={styles.titulo}>{item.titulo}</Text>
+//                               <Image source={{uri:item.link}} style={styles.image} />
+//                               <Text style={{ padding: 2, color: '333333', fontWeight: 'bold', fontSize: 16, paddingLeft: 10}}>Nome:  {item.titulo}</Text>
+
+//                               <Text style={{ color: '#333333', fontWeight: 'bold', fontSize: 16, paddingLeft: 10 }}>endereço:  {item.enderreco}</Text>
+//                               <Text style={{color:'#333333', fontWeight: 'bold', fontSize: 16, paddingLeft: 10}}>Mensagem(Opcional): {item.descricao}</Text>
+                            
+//                               <View style={styles.itemButtons}>
+//                               <TouchableOpacity
+//                                   //onPress={() => irDetalhes(item.id, item.descricao, item.preco, item.titulo, item.img, item.idUser)}
+//                               >
+//                                   <AntDesign name="eye" size={26} color="#32CD42" />
+//                               </TouchableOpacity>
+//                           </View>
+//                           </View>
+
+                          
+//                       </View>
+//                   )}
+//               keyExtractor={item => item.id}
+//               showsVerticalScrollIndicator={false}
+//               contentContainerStyle={{ paddingBottom: 50 }}
+//               ListEmptyComponent={() => (
+//                   <Text style={{ textAlign: 'center', color: 'black', fontSize: 22, marginTop: 20 }}>
+//                       Nenhum Dado Encontrado!
+//                   </Text>
+//               )}
+//           />
+//     </View>
+//   );
+// }
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#fff',
+//     marginTop:30,
     
-        console.log(result);
+//   },
+
+//   image: {
+//     width: 140,
+//         height: 140,
+//         marginLeft: 8,
+//         borderRadius: 10,
+//         backgroundColor: '#fee',
+        
+//   },
+//   input: {
+//     width: '90%',
+//     height: 50,
     
-        if (!result.canceled) {
-          setImage(result.uri);
-        }
-      };
-      useEffect(()=>{
-        const uploadImage = async()=>{
-            //trtanfroma o arquivo de imagem em blop image
-            const blobImage = await new Promise ((resolve,reject)=>{
-                const xhr = new XMLHttpRequest();
-                xhr.onload=function(){
-                    resolve(xhr.response);
-                }
-                xhr.onerror=function(){
-                    reject(new TypeError("Network request failed"))
-                };
-                xhr.responseType = 'blob';
-                xhr.open("GET",image,true);
-                xhr.send(null);
-            })
-            //configura a metadata do arquivo
-            /** @type {any} */
-            const metadata = {
-                contentType: 'image/jpeg',
-            };
-            //envia o arquivo pro storage
-            const storageRef = ref(storage, 'img/'+Date.now());
+//     padding: 15,
+//     marginVertical: 10,
+    
+//     borderColor: '#111',
+//     borderWidth: 1,
+//     borderRadius: 10,
+    
+//     backgroundColor: '#222',
+//     color: '#FFF',
+//     fontSize: 20,
+  
+// },
+//     titulo: {
+//         fontSize: 18, 
+//         fontWeight: 'bold', 
+//         color:'#333333', 
+//         paddingLeft: 20
+//     },
+//     itemButtons: {
+//         paddingLeft: 10,
 
-            const uploadTask = uploadBytesResumable(storageRef, blobImage);
-
-            // Register three observers:
-            // 1. 'state_changed' observer, called any time the state changes
-            // 2. Error observer, called on failure
-            // 3. Completion observer, called on successful completion
-            uploadTask.on('state_changed',
-                (snapshot) => {
-                    // Observe state change events such as progress, pause, and resume
-                    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                    console.log('Upload is ' + progress + '% done');
-                    switch (snapshot.state) {
-                        case 'paused':
-                            console.log('Upload is paused');
-                            break;
-                        case 'running':
-                            console.log('Upload is running');
-                            break;
-                    }
-                },
-                (error) => {
-                    // Handle unsuccessful uploads
-                },
-                () => {
-                    // Handle successful uploads on complete
-                    // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                        console.log('File available at', downloadURL);
-                        setLink(downloadURL);
-                    });
-                }
-            );
-        }
-        if(image!=null){
-            uploadImage();
-            setImage(null);
-        }
-
-      },[image])
-
-    return (
-        <View style={styles.container}>
-            <Text  style={{fontSize:22,color:'black'}}>Olá, seja bem vindo!</Text>
-            <TextInput style={styles.input} placeholder="Titulo do arquivo selecionado"/>
-            <TouchableOpacity style={{height:50,width:"80%",margin:20,backgroundColor:"green",justifyContent:'center',alignItems:'center'}}onPress={pickImage}><Text>Escolha uma foto </Text></TouchableOpacity>
-            <Text>{link}</Text>
-        </View>
-
-    );
-};
-
-const styles = StyleSheet.create({
-    container:{
-        flex:1,
-        justifyContent:"center",
-        alignItems:"center",
-
-    },
-    texto:{
-        color:"black",
-
-
-    },
-    input: {
-        height: 40,
-        margin: 12,
-        borderBottomWidth:1,
-        borderBottomColor:'black',
-        padding: 10,
-      },
-})
+//     }
+// })

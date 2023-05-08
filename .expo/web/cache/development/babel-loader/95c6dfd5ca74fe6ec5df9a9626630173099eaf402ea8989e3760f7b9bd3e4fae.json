@@ -1,0 +1,1 @@
+{"ast":null,"code":"export * from \"./SliderBox\";","map":{"version":3,"names":[],"sources":["C:/Users/dansf/Desktop/reactNative/PJ/node_modules/react-native-image-slider-box/dist/index.js"],"sourcesContent":["export * from './SliderBox'"],"mappings":"AAAA"},"metadata":{},"sourceType":"module","externalDependencies":[]}

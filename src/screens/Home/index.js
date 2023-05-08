@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View,Image, Text, StyleSheet, TouchableOpacity, FlatList, Dimensions, TextInput, ScrollView } from 'react-native';
+import { View,Image, Alert, Text, StyleSheet, TouchableOpacity, FlatList, Dimensions, TextInput, ScrollView } from 'react-native';
 import { FontAwesome5, AntDesign } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { getDocs, collection, deleteDoc, doc } from 'firebase/firestore';
@@ -9,11 +9,29 @@ import { signOut } from 'firebase/auth';
 import {Feather} from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import Banner from '../Banner';
+
 const {width}=Dimensions.get('window');
 
 export default function Home({navigation}) {
-
-    const [ data, setData ] = useState([]);
+    const fruta = "Fruta";
+    const verdura= "verdura";
+    const legume = "legume";
+    const grao = "grao";
+   
+    const [data, setData] = useState([]);
+    const [list, setList] = useState(data);
+    const [searchText, setSearchText] = useState('');
+    //busca    
+//organizar lista <<cria nova lista a partir de data e reoganiza atraves da barra de pesquisa
+    // const handleOrderClick = () => {
+    //     let newList = [data];
+    
+    //     newList.sort((a, b) => (a.titulo > b.titulo ? 1 : b.titulo > a.titulo ? -1 : 0));
+    
+    //     setList(newList);
+    //   };
+// fazer logoff
     async function LogOff(){
         signOut(auth)
         .then(
@@ -21,7 +39,7 @@ export default function Home({navigation}) {
             
         ).catch(error => alert(error+'Log Out não efetuado!!'));
     };
-
+// receber dados do banco e daicionar a const data
     useEffect(() => {
         getDocs(collection(db, 'anuncios')).then(
             (docSnap) => {
@@ -33,11 +51,29 @@ export default function Home({navigation}) {
                     })
                 })
                 setData(users);
+                //setList(data)
             });
-    }, [data]);
+    },[data]);
+    
+
+    useEffect(() => {
+        if (searchText === '') {
+            setList(data);
+        } else {
+            setList(
+                data.filter(
+                    (item) =>
+                        item.titulo.toLowerCase().indexOf(searchText.toLowerCase()) > -1
+                )
+            );
+        }
+    }, [searchText]);
 
     function deleteData(id) {
-        deleteDoc(doc(db, "anuncios", id));
+        deleteDoc(doc(db, "anuncios",id));
+    }
+    function irFilter(tipo){
+        navigation.navigate("Filter",{tipo,data})
     }
     function irDetalhes(id,desc,preco,titulo,imagem,idUser){
         navigation.navigate("Detalhes",{item:id,desc:desc,preco:preco,titulo:titulo,img:imagem,idUser:idUser})
@@ -64,51 +100,98 @@ export default function Home({navigation}) {
 
                 <View style={{ paddingHorizontal: 4}}>
                     <TouchableOpacity onPress={() => irNote()}>
-                        <AntDesign name="bells" size={26} color="#32CD32" />
+                        <AntDesign titulo="bells" size={26} color="#32CD32" />
                         
                     </TouchableOpacity>
                  
                 </View>
                 <View style = {{marginLeft: 4, marginRight:6}}>
                     <TouchableOpacity onPress={()=> irAdd()}>
-                        <AntDesign name="pluscircleo" size={26} color="green" />
+                        <AntDesign titulo="pluscircleo" size={26} color="green" />
                     </TouchableOpacity>
                 </View>
 
                 <View style={{ backgroundColor: 'gray' ,borderRadius: 50, padding: 6}}>
                     <TouchableOpacity onPress={LogOff}>
-                        <AntDesign name="user" size={28} color="white" />
+                        <AntDesign titulo="user" size={28} color="white" />
                     </TouchableOpacity>
                 </View>
 
                 
 
             </View>
+            
             <View style={styles.headerNavBar}>{/*Inicio barra pesquisa */}
-                        <View style={styles.navBar}>
-                            <Feather name = 'search' size={24} color = '#90EE90'></Feather>
-                            <TextInput style={styles.input} placeholder='Search'></TextInput>
+                <View style={styles.navBar}>
+                    {/* <Feather titulo = 'search' size={24} color = '#90EE90'></Feather> */}
+                 <TextInput
+                     style={styles.input}
+                     placeholder="Pesquise um produto"
+                     placeholderTextColor="#888"
+                     value={searchText}
+                     onChangeText={(t) => setSearchText(t)}
+                 />
+
+                
                             
-                        </View>
-                        <View style={styles.iconNav }>
-                            <TouchableOpacity onPress={() => navigation.navigate('Produtos')} ><AntDesign name='bells' size={21} color='#90EE90'/></TouchableOpacity>
-                        </View>
+                </View>
+                <View style={styles.iconNav }>
+                    <TouchableOpacity onPress={() => navigation.navigate('Produtos')} ><AntDesign titulo='bells' size={21} color='#90EE90'/></TouchableOpacity>
+                </View>
                         
-                    </View>{/*Fim fim barra pesquisa */}
+            </View>{/*Fim fim barra pesquisa */}
+
+            {/*Inicio banner */}
+            <Banner/>
+            
 
 
 
         {/*Inicio Categorias*/}   
         <View style={styles.title02}>
             <Text style={{fontSize: 26, marginHorizontal: 10, color:'#33333'}}>Categorias</Text>
-            <View style={{left: 0}}><TouchableOpacity><Text style={styles.txtPress}>Exibir <AntDesign name="right" size={14} color="#32CD32" /></Text></TouchableOpacity></View>
+            <View style={{left: 0}}><TouchableOpacity onPress={() => Alert.alert('Exibir', 'Clicou Exibir')}><Text style={styles.txtPress}>Exibir <AntDesign titulo="right" size={14} color="#32CD32" /></Text></TouchableOpacity></View>
         </View>
 
-        <SafeAreaView style={{marginTop: 0}}>
-        <FlatList 
+        <ScrollView horizontal={true}>
+            <View style={{}}>
+                <TouchableOpacity onPress={""}  style={{justifyContent:'center', alignItems:'center'}}>
+                    <Image source={{uri:'https://cdn-icons-png.flaticon.com/512/5371/5371284.png'}} style={styles.image02} />
+                    <Text style={{justifyContent: 'center', marginLeft: 10}}>Frutas</Text>
+                </TouchableOpacity>
+            </View>
+            <View style={{}}>
+                <TouchableOpacity onPress={() => irDetalhes(grao)}  style={{justifyContent:'center', alignItems:'center'}}>
+                    <Image source={{uri:'https://cdn-icons-png.flaticon.com/512/3332/3332099.png'}} style={styles.image02} />
+                    <Text style={{justifyContent: 'center', marginLeft: 6}}>Grãos</Text>
+                </TouchableOpacity>
+            </View>
+            <View style={{}}>
+                <TouchableOpacity onPress={() => irFilter(legume)} style={{justifyContent:'center', alignItems:'center'}}>
+                    <Image source={{uri:'https://cdn-icons-png.flaticon.com/512/776/776500.png'}} style={styles.image02} />
+                    <Text style={{justifyContent: 'center', marginLeft: 10}}>Legumes</Text>
+                </TouchableOpacity>
+            </View>
+            <View style={{}}>
+                <TouchableOpacity onPress={() => irFilter(verdura)}style={{justifyContent:'center', alignItems:'center'}}>
+                    <Image source={{uri:'https://cdn-icons-png.flaticon.com/512/5260/5260841.png'}} style={styles.image02} />
+                    <Text style={{justifyContent: 'center', marginLeft: 10}}>Verduras</Text>
+                </TouchableOpacity>
+            </View>
+            <View style={{}}>
+                <TouchableOpacity onPress={() => {Alert.alert('Categorias', 'Clicou Verduras')}}  style={{justifyContent:'center', alignItems:'center'}}>
+                    <Image source={{uri:'https://cdn-icons-png.flaticon.com/512/2153/2153788.png'}} style={styles.image02} />
+                    <Text style={{justifyContent: 'center', marginLeft: 10}}>Verduras</Text>
+                </TouchableOpacity>
+            </View>
+
+        </ScrollView>
+         
+        
+        {/* <FlatList 
         
         style={{maxHeight:width}}
-        //pagingEnabled
+        
         horizontal
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
@@ -121,7 +204,7 @@ export default function Home({navigation}) {
                         ({ item }) => (
                         <ScrollView> 
                     
-                    {/* :) */}
+                    
                         <View style={{marginTop: 20}}>
                         <TouchableOpacity onPress={() => irDetalhes(item.id,item.descricao,item.preco,item.titulo,item.img,item.idUser)} style={{justifyContent:'center', alignItems:'center'}}>
                             <Image source={{uri:item.img}} style={styles.image02} />
@@ -133,9 +216,7 @@ export default function Home({navigation}) {
 
                         
                         )}
-            //
-                            
-            //
+            
 
                     keyExtractor={item => item.id}
                     showsVerticalScrollIndicator={false}
@@ -145,21 +226,25 @@ export default function Home({navigation}) {
                             Nenhum Dado Encontrado!
                         </Text>
                     )}
-                />
-                </SafeAreaView>
+                /> */}
+                
             {/*Fim da FlatList Categorias*/}
             
             
             {/*Ofertas Populares*/}
-            <View style={{flexDirection: 'row'}}>
+            <View style={{flexDirection: 'row', paddingTop: 26}}>
+                
                 <Text style={{padding: 10, fontSize: 26 }}>Ofertas Populares</Text>
-            
-                <Text style={{color:'#32CD32', fontSize: 12, top: 20, left: 40}}>Ver mais</Text>
-                <View style={{top:20, left: 50,  }}><AntDesign name='right' size= {14} color = '#32CD32'/></View>
+
+                <TouchableOpacity onPress={() => {Alert.alert('Ofertas Populares', 'Clicou Ver mais')}}>
+                    <Text style={{color:'#32CD32', fontSize: 14, top: 20, left: 40}}>Ver mais</Text>
+                </TouchableOpacity>
+
+                <View style={{top:24, left: 50,  }}><AntDesign titulo='right' size= {14} color = '#32CD32'/></View>
                 
             </View>
             {/*Inicio da FlatList 'Ofertas Populares'*/}
-            <SafeAreaView>
+            <View>
                 <FlatList
                     style={{maxHeight:width}}
                     
@@ -167,7 +252,7 @@ export default function Home({navigation}) {
                     showsVerticalScrollIndicator={false}
                     showsHorizontalScrollIndicator={false}
                     keyExtractor={(item)=> String(item?.id)}
-                    renderItem={({item})=><OnBoardingItem item ={item}/>}
+                    //renderItem={({item})=><OnBoardingItem item ={item}/>}
 
                     data={data}
 
@@ -187,7 +272,7 @@ export default function Home({navigation}) {
                                     <View style={styles.containerProdutos}>
 
                                     <View style={{flex:1 , flexDirection: 'row', marginTop: 0, width: 140, }}>
-                                    <View style={{right: 380}}><AntDesign name="star" size={19} color="#FFC700"  /></View>
+                                    <View style={{right: 380}}><AntDesign titulo="star" size={19} color="#FFC700"  /></View>
                                     <Text style={{right: 20, paddingRight: 0, color: 'gray'}}>0 Avaliações</Text>
                                     <Text style={{left: 90, color:'#333333', fontSize: 18}}>R$ {item.preco}</Text>
                                     </View>
@@ -201,8 +286,8 @@ export default function Home({navigation}) {
                             
             //
 
-                    keyExtractor={item => item.id}
-                    showsVerticalScrollIndicator={false}
+                    //keyExtractor={item => item.id}
+                    //showsVerticalScrollIndicator={false}
                     contentContainerStyle={{paddingBottom: 50}}
                     ListEmptyComponent={() => (
                         <Text style={{textAlign: 'center', color: '#fff'}}>
@@ -218,7 +303,8 @@ export default function Home({navigation}) {
         <ScrollView>
 
         <FlatList 
-        data={data}
+        data={list}
+        keyExtractor={item => item.id}
 
         
 
@@ -233,13 +319,13 @@ export default function Home({navigation}) {
                             <TouchableOpacity onPress={() => irDetalhes(item.id,item.descricao,item.preco,item.titulo,item.img,item.idUser)} style={{justifyContent:'center', alignItems:'center'}} style={styles.texto03 } >
                                 <Text style={{fontSize: 18, color: 'black', paddingBottom: 10}}>{item.titulo}</Text>
                                 <View style={{flex:1 , flexDirection: 'row', marginTop: 5, width: 140}}>
-                                    <AntDesign name="star" size={19} color="#FFC700" />
+                                    <AntDesign titulo="star" size={19} color="#FFC700" />
                                     <Text style={{left: 5, paddingRight: 10, color: 'gray'}}>4.8</Text>
                                     <Text style={{color: 'gray'}}>75 mais votados</Text>
                                 </View>
                                 <View style={{}}>
                                     <Text style={{marginBottom: 0,alignContent: 'center',color: '#333333', fontSize: 22}} >R$ {item.preco}</Text>
-                                    <AntDesign name="tags" size={22} color="#32CD32" />
+                                    <AntDesign titulo="tags" size={22} color="#32CD32" />
                                     
                                 </View>
                             </TouchableOpacity>
@@ -250,7 +336,7 @@ export default function Home({navigation}) {
                             
             //
 
-                    keyExtractor={item => item.id}
+                    
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={{paddingBottom: 50}}
                     ListEmptyComponent={() => (
@@ -261,7 +347,7 @@ export default function Home({navigation}) {
                 />
                 </ScrollView>
 
-        </SafeAreaView>
+        </View>
 
         
 
@@ -342,7 +428,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         
     },
-    name: {
+    titulo: {
         fontSize: 18,
         fontWeight: 'bold',
         color: 'black',
@@ -495,7 +581,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: '#fff',
         width: '100%',
-        marginTop: 40
+        marginTop: 40,
+        marginBottom: 10
     },
     txtPress:{
       color: '#32CD32',

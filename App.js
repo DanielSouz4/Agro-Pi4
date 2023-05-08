@@ -9,12 +9,14 @@ import Home from './src/screens/Home';
 import Add from './src/screens/Mov';
 import Detalhes from './src/screens/Detalhes';
 import Compra from './src/screens/Compra';
-import { Favoritos } from './src/screens/favoritos';
+//npm install @react-navigation/bottom-tabs
+//import Notificacao from './src/screens/Notificacao';
+import Imagens from './src/screens/Imagens';
+import Filter from './src/screens/Filter';
 
 import Notificacao from './src/screens/Notificacao'
 import { ScreenStackHeaderSearchBarView } from 'react-native-screens';
 
-import Imagens from './src/screens/Imagens'
 
 
 const Stack = createNativeStackNavigator();
@@ -89,7 +91,7 @@ function Tabs(){
     }
   }
   />
-    <Tab.Screen name="Favoritos" component={Favoritos} options={{
+    {/* <Tab.Screen name="Favoritos" component={Favoritos} options={{
       
       tabBarIcon: ({focused}) => (
         <View style={{alignItems:'center',justifyContent:'center', top:2}}>
@@ -111,7 +113,7 @@ function Tabs(){
       )
     }
   }
-    />
+    /> */}
     <Tab.Screen name="Post" component={Add} 
       options={{
         tabBarIcon: ({focused}) => (
@@ -171,7 +173,7 @@ function Tabs(){
           />
           <Text
             style={{color: focused ? '#e32f45' : '#748c94',fontSize:12}}
-          >CHAT</Text>
+          >Notificação</Text>
         </View>
 
       )
@@ -187,13 +189,14 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
         <Stack.Screen name="Home" component={Tabs} options={{headerShown: false}}  />
-        <Stack.Screen name="Register" component={Register} />
+        <Stack.Screen name="Register" component={Register} options={{headerShown:false}} />
         <Stack.Screen name="Login" component={Login} options={{headerShown: false}} />
-        <Stack.Screen name="Add" component={Add}/>
-        <Stack.Screen name="Detalhes" component={Detalhes}/>
+        <Stack.Screen name="Add" component={Add} options={{headerShown: false}}/>
+        <Stack.Screen name="Detalhes" component={Detalhes} options={{headerShown: false}}/>
         <Stack.Screen name= "Compra" component={Compra}/>
-        <Stack.Screen name='notificacao' component={Notificacao}/>
-        <Stack.Screen name="Imagens" component={Imagens}/>
+        <Stack.Screen name='notificacao' component={Notificacao} options={{headerShown: false}}/>
+        {/* <Stack.Screen name="Imagens" component={Imagens}/> */}
+        <Stack.Screen name="Filter" component={Filter}/>
       </Stack.Navigator>
       
       

@@ -14,12 +14,20 @@ export default function Add() {
     const [ desc, setDesc ] = useState('');
     const [titulo, setTitulo] = useState('');
     const [tipo, setTipo] = useState('');
+    const [completo, setCompleto] = useState("");
 
     const [title,setTitle] = useState(null);
     const [picture,setPicture] = useState(null);
     const [image,setImage] = useState(null);
     const [link,setLink] = useState(null);
-    
+
+
+     useEffect(()=>{
+        if(link!=null){
+        setCompleto("imagem adicionada!!")
+        }
+     },[link])
+
     function creator (){
 
         addDoc(collection(db, "anuncios"), {
@@ -55,7 +63,7 @@ export default function Add() {
       };
       useEffect(()=>{
         const uploadImage = async()=>{
-            //trtanfroma o arquivo de imagem em blop image
+            //trasforma o arquivo de imagem em blop image
             const blobImage = await new Promise ((resolve,reject)=>{
                 const xhr = new XMLHttpRequest();
                 xhr.onload=function(){
@@ -119,31 +127,33 @@ export default function Add() {
 
 
  return (
-    <View style={{alignContent:'center',alignItems:'center'}}>
+    <View style={{alignContent:'center',alignItems:'center', marginTop:10}}>
+        <View style={{marginTop:20}}>
         <AntDesign name="isv" size={80} color="green" />
+        </View>
         <Text style={styles.header}>Cadastro de Produto</Text>
 
         <TextInput 
             value={titulo}
             onChangeText={setTitulo}
-            style={styles.input2}
+            style={styles.input3}
             placeholder="Titulo..."
-            placeholderTextColor="#FFF"
+            placeholderTextColor="gray"
         />
         <TextInput 
             value={desc}
             onChangeText={setDesc}
-            style={styles.input2}
-            placeholder="descrição do produto..."
-            placeholderTextColor="#FFF"
+            style={styles.input3}
+            placeholder="Descrição do produto..."
+            placeholderTextColor="gray"
         />
 
         <TextInput 
             value={preco}
             onChangeText={setPreco}
-            style={styles.input2}
+            style={styles.input3}
             placeholder="Valor.."
-            placeholderTextColor="#FFF"
+            placeholderTextColor="gray"
         />
         <Text style={styles.txtButton2}>Selecione o tipo do produto</Text>
 
@@ -158,13 +168,19 @@ export default function Add() {
                  onPress={()=>setTipo("Verdura")}
                  title="Verdura"
                  color="gray"
-                 accessibilityLabel="MArque esta opção se seu produto for un tipo de verdura"
+                 accessibilityLabel="Marque esta opção se seu produto for un tipo de verdura"
              />
              <Button
                  onPress={()=>setTipo("Legume")}
                  title="Legume"
                  color="black"
                  accessibilityLabel="Marque esta opção se seu produto for um tipo de legume"
+             />
+             <Button
+                 onPress={()=>setTipo("Grão")}
+                 title=" Grão "
+                 color="green"
+                 accessibilityLabel="Marque esta opção se seu produto for um tipo de grão"
              />
         </View>
 
@@ -175,9 +191,11 @@ export default function Add() {
         
         <View style={{justifyContent:'center',alignItems:'center',paddingTop:5}}>
             <Text  style={styles.txtButton2}>Escolha a imagem do seu produto!</Text>
-            <TextInput style={styles.input} placeholder="Titulo do arquivo selecionado"/>
-            <TouchableOpacity style={styles.button2}onPress={pickImage}><Text>Adicionar foto </Text></TouchableOpacity>
-            <Text>{link}</Text>
+            {
+            //"<TextInput style={styles.input} placeholder="Titulo do arquivo selecionado"/>"
+            }
+            <TouchableOpacity style={styles.button2}onPress={pickImage}><Text style={{fontWeight:"bold"}}>   Carregar Imagem  </Text></TouchableOpacity>
+            <Text style={{color:'green', fontWeight:'bold'}}>{completo}</Text>
         </View>
 
    
@@ -237,9 +255,17 @@ const styles = StyleSheet.create({
         borderBottomColor:'black',
         padding: 10,
       },
+      input3: {
+        width: '80%',
+        height: 40,
+        borderColor: '#000000',
+        borderBottomWidth: 2,
+        marginBottom: 36,
+        fontSize: 20
+    },
     button: {
         backgroundColor: '#82C043',
-        width: '90%',
+        width: '80%',
         height: 50,
         justifyContent: 'center',
         alignItems: 'center',
@@ -253,12 +279,17 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 5,
-        borderRadius: 10
+        borderRadius: 10,
+        fontWeight:'bold'
     },
-    txtButton: {
-        color: '#FFF',
-        fontSize: 18,
-        fontWeight: 'bold',
+     button: {
+        backgroundColor: '#32CD32',
+        width: '90%',
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 10,
+        borderRadius: 10
     },
     txtButton2: {
         color: 'black',

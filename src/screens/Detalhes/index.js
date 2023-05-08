@@ -29,7 +29,7 @@ export default function Detalhes({ route }) {
 
     navigation.setOptions({
       headerRight: () =>(
-        <Pressable onPress={()=> recebeFavoritos(route.params.data)}>
+        <Pressable onPress={null}>
           { favorite ? (
           <Entypo 
              name='heart'
@@ -50,15 +50,15 @@ export default function Detalhes({ route }) {
  
   },[navigation,route.params?.data,favorite])
 
-  async function recebeFavoritos(receipe){
-    if(favorite){
-      await removeItem(receipe.id)
-      setFavorite(false)
-    }else{
-      await saveFavorite("@agrodigital",  receipe)
-      setFavorite(true)
-    }
-  }
+  // async function recebeFavoritos(receipe){
+  //   if(favorite){
+  //     await removeItem(receipe.id)
+  //     setFavorite(false)
+  //   }else{
+  //     await saveFavorite("@agrodigital",  receipe)
+  //     setFavorite(true)
+  //   }
+  // }
 
   async function compartilhar(){
     try {
