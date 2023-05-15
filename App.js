@@ -7,9 +7,11 @@ import Login from './src/screens/Login';
 import Register from './src/screens/Register';
 import Home from './src/screens/Home';
 import Add from './src/screens/Mov';
+
+
 import Detalhes from './src/screens/Detalhes';
 import Compra from './src/screens/Compra';
-//npm install @react-navigation/bottom-tabs
+
 //import Notificacao from './src/screens/Notificacao';
 import Imagens from './src/screens/Imagens';
 import Filter from './src/screens/Filter';
@@ -33,10 +35,10 @@ const CustomTabBarButton = ({children, onPress}) => (
     onPress={onPress}
   >
     <View style={{
-      width:70,
-      height:70,
-      borderRadius:35,
-      backgroundColor:'#32CD32',
+      width:50,
+      height:50,
+      borderRadius:25,
+      backgroundColor:'#005C53',
      
     }} 
     > 
@@ -52,8 +54,11 @@ function Tabs(){
   return (
   <Tab.Navigator
   
-      tabBarOptions={{
+      screenOptions={{
         showLabel: false,
+        headerShown: false,
+        tabBarHideOnKeyboard:true,
+        tabBarShowLabel:false,
         style: {
           position: 'absolute',
           bottom:25,
@@ -77,13 +82,13 @@ function Tabs(){
             source={require('./src/images/icons/home.png')}
             resizeMode='contain'
             style={{
-            width:25,
-            height:25,
-            tintColor: focused ? '#e32f45' : '#748c94',
+            width:12,
+            height:12,
+            tintColor: focused ? '#005C53' : '#748c94',
             }}
           />
           <Text
-            style={{color: focused ? '#e32f45' : '#748c94',fontSize:12}}
+            style={{color: focused ? '#005C53' : '#748c94',fontSize:9}}
           >HOME</Text>
         </View>
 
@@ -91,7 +96,7 @@ function Tabs(){
     }
   }
   />
-    {/* <Tab.Screen name="Favoritos" component={Favoritos} options={{
+    <Tab.Screen name="Favoritos" component={Add} options={{
       
       tabBarIcon: ({focused}) => (
         <View style={{alignItems:'center',justifyContent:'center', top:2}}>
@@ -100,20 +105,20 @@ function Tabs(){
             source={require('./src/images/icons/heart.png')}
             resizeMode='contain'
             style={{
-            width:25,
-            height:25,
-            tintColor: focused ? '#e32f45' : '#748c94',
+            width:15,
+            height:15,
+            tintColor: focused ? '#005C53' : '#748c94',
             }}
           />
           <Text
-            style={{color: focused ? '#e32f45' : '#748c94',fontSize:12}}
+            style={{color: focused ? '#005C53' : '#748c94',fontSize:9}}
           >FAVORITOS</Text>
         </View>
 
       )
     }
   }
-    /> */}
+    /> 
     <Tab.Screen name="Post" component={Add} 
       options={{
         tabBarIcon: ({focused}) => (
@@ -122,8 +127,8 @@ function Tabs(){
             source={require('./src/images/icons/plus.png')}
             resizeMode="contain"
             style={{
-              with:30,
-              height:30,
+              with:15,
+              height:15,
               tintColor:focused ? '#ffff' : '#f2f2f2',
             }}
           
@@ -145,13 +150,13 @@ function Tabs(){
             source={require('./src/images/icons/setting.png')}
             resizeMode='contain'
             style={{
-            width:25,
-            height:25,
-            tintColor: focused ? '#e32f45' : '#748c94',
+            width:15,
+            height:15,
+            tintColor: focused ? '#005C53' : '#748c94',
             }}
           />
           <Text
-            style={{color: focused ? '#e32f45' : '#748c94',fontSize:12}}
+            style={{color: focused ? '#005C53' : '#748c94',fontSize:9}}
           >AJUSTES</Text>
         </View>
 
@@ -166,14 +171,14 @@ function Tabs(){
             source={require('./src/images/icons/chat.png')}
             resizeMode='contain'
             style={{
-            width:25,
-            height:25,
-            tintColor: focused ? '#e32f45' : '#748c94',
+            width:15,
+            height:15,
+            tintColor: focused ? '#005C53' : '#748c94',
             }}
           />
           <Text
-            style={{color: focused ? '#e32f45' : '#748c94',fontSize:12}}
-          >Notificação</Text>
+            style={{color: focused ? '#005C53' : '#748c94',fontSize:9}}
+          >NOTIFICAÇÂO</Text>
         </View>
 
       )
@@ -187,12 +192,12 @@ function Tabs(){
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
+      <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={Tabs} options={{headerShown: false}}  />
         <Stack.Screen name="Register" component={Register} options={{headerShown:false}} />
         <Stack.Screen name="Login" component={Login} options={{headerShown: false}} />
         <Stack.Screen name="Add" component={Add} options={{headerShown: false}}/>
-        <Stack.Screen name="Detalhes" component={Detalhes} options={{headerShown: false}}/>
+        <Stack.Screen name="Detalhes" component={Detalhes} />
         <Stack.Screen name= "Compra" component={Compra}/>
         <Stack.Screen name='notificacao' component={Notificacao} options={{headerShown: false}}/>
         {/* <Stack.Screen name="Imagens" component={Imagens}/> */}
