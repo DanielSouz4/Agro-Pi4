@@ -25,7 +25,7 @@ export default function Banners (){
         <SliderBox images={images} 
         dotColor='#32CD32' 
         inactiveDotColor='white' 
-        dotStyle={{ height: 10, width: 10, borderRadius: 50}} 
+        dotStyle={{ height: 5, width: 5, borderRadius: 50}} 
         imageLoadingColor='green' 
         autoplay={true} 
         circleLoop={true}

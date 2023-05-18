@@ -18,9 +18,9 @@ const {height}=Dimensions.get('window');
 
 const produtosCategorias = [
     {name: 'FRUTA', icon: 'fruit-watermelon'},
-    {name: 'LEGUME', icon: 'fruit-watermelon'},
-    {name: 'VERDURA', icon: 'fruit-watermelon'},
-    {name: 'GRÃO', icon: 'fruit-watermelon'},
+    {name: 'LEGUME', icon: 'pumpkin'},
+    {name: 'VERDURA', icon: 'carrot'},
+    {name: 'GRÃO', icon: 'grain'},
   ];
 
   const Card = ({produto, navigation}) => {
@@ -84,20 +84,17 @@ export default function Home({navigation}) {
     const [searchText, setSearchText] = useState('');
 
     
-
+    console.log(data);
     const fliterPro = index => {
       const currentProducts = data.filter(
         item => item?.tipoProduto?.toUpperCase() == produtosCategorias[index].name.toUpperCase(),
       );
       console.log( produtosCategorias[index].name + ":",currentProducts)
       if (currentProducts.length > 0) {
-        
         setFilterProduto(currentProducts);
       } else {
         setFilterProduto([]);
-        <View>
-          <Text>Nenhum produto encontrado</Text>
-        </View>
+        
       }
     };
     
@@ -145,9 +142,9 @@ export default function Home({navigation}) {
 
     useEffect(() => {
         if (searchText === '') {
-            setList(data);
+            setFilterProduto(data);
         } else {
-            setList(
+            setFilterProduto(
                 data.filter(
                     (item) =>
                         item.titulo.toLowerCase().indexOf(searchText.toLowerCase()) > -1
@@ -191,6 +188,7 @@ export default function Home({navigation}) {
                 <AntDesign name="user" size={28} color="white" />
             </TouchableOpacity>
          </View>
+         <Banner />
 
          <ScrollView showsVerticalScrollIndicator={false}>
 
@@ -202,10 +200,14 @@ export default function Home({navigation}) {
                 placeholderTextColor={'gray'}
                 placeholder=" Busque seu produto"
                 style={{flex: 1}}
+                value={searchText}
+                onChangeText={(t) => setSearchText(t)}
                 />
                 <FontAwesome5 name="sort-amount-down" size={24} color="gray" />
                 
             </View>
+
+            
 
             {/* iniciando categorias  */}
             <View style={{flexDirection:'row',justifyContent:'space-between',marginTop:20}}>

@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState,useLayoutEffect } from "react";
 import { Dimensions, Button, Alert, SafeAreaView,
-   StyleSheet, Text, View, Image, TouchableOpacity,ScrollView,Pressable,Share
+   StyleSheet, Text, View, Image, TouchableOpacity,ScrollView,Pressable,Share, TouchableOpacityBase
 } from 'react-native';
 ///import { getProduct } from "../../components/banco";
 import { getDocs, collection, deleteDoc, doc } from 'firebase/firestore';
@@ -11,7 +11,7 @@ import { Entypo } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-import { isFavorite,saveFavorite, removeItem,getFavorites} from '../../storag/storage';
+// import { isFavorite,saveFavorite, removeItem,getFavorites} from '../../storag/storage';
 import Comprar from './../Compra/index';
 
 
@@ -20,48 +20,48 @@ export default function Detalhes({navigation,route}) {
 
   const produto = route.params;
   const [count, setCount] = useState(1);
-  const [favorite, setFavorite] =  useState(false)
+  const [isfavorite, setIsFavorite] =  useState(false)
 
-  useLayoutEffect(() => {
-    async function Favoritos(){
-      const receipeFavorite = await isFavorite(route.params?.data)
-      setFavorite(receipeFavorite)
-    }
+  // useLayoutEffect(() => {
+  //   async function Favoritos(){
+  //     const receipeFavorite = await isFavorite(route.params?.produto)
+  //     setFavorite(receipeFavorite)
+  //   }
 
-    Favoritos();
+  //   Favoritos();
 
-    navigation.setOptions({
-      headerRight: () =>(
-        <Pressable onPress={() => recebeFavoritos(route.params.data)}>
-          { favorite ? (
-          <Entypo 
-             name='heart'
-             size={28}
-             color={"#FF4141"}
-             />
-         ) : (
-          <Entypo 
-          name='heart-outlined'
-          size={28}
-          color={"#FF4141"}
-          />
-         )}
-        </Pressable>
-      )
+  //   navigation.setOptions({
+  //     headerRight: () =>(
+  //       <Pressable onPress={() => recebeFavoritos(route.params.produto)}>
+  //         { favorite ? (
+  //         <Entypo 
+  //            name='heart'
+  //            size={28}
+  //            color={"#FF4141"}
+  //            />
+  //        ) : (
+  //         <Entypo 
+  //         name='heart-outlined'
+  //         size={28}
+  //         color={"#FF4141"}
+  //         />
+  //        )}
+  //       </Pressable>
+  //     )
          
-    })
+  //   })
  
-  },[navigation,route.params?.data,favorite])
+  // },[navigation,route.params?.produto,favorite])
 
-  async function recebeFavoritos(receipe){
-    if(favorite){
-      await removeItem(receipe.id)
-      setFavorite(false)
-    }else{
-      await saveFavorite("@agrodigital",  receipe)
-      setFavorite(true)
-    }
-  }
+  // async function recebeFavoritos(receipe){
+  //   if(favorite){
+  //     await removeItem(receipe.id)
+  //     setFavorite(false)
+  //   }else{
+  //     await saveFavorite("@agrodigital",  receipe)
+  //     setFavorite(true)
+  //   }
+  // }
 
   async function compartilhar(){
     try {
@@ -138,11 +138,29 @@ export default function Detalhes({navigation,route}) {
             only five centuries.
           </Text>
 
-          <View style={{marginTop: 40, marginBottom: 40}}>
-            <TouchableOpacity  style={styles.button}>
-                <Text style={styles.buttonText}>Comprar</Text>
+           {/*footer */}
+        <View style={styles.footer}>
+          <View style={styles.iconCon} >
+          <TouchableOpacity onPress={() => setIsFavorite(!isfavorite)} >
+          <Entypo 
+            name= {isfavorite?'heart':'heart'}
+            size={28}
+            color={isfavorite?"#FF4141":"#fff"}
+          />
+          </TouchableOpacity>
+
+          </View>
+          <View style={styles.btn}>
+            <TouchableOpacity style={styles.button}>
+            <Text style={{color: 'white', fontWeight: 'bold'}}>
+              COMPRAR
+            </Text>
             </TouchableOpacity>
           </View>
+        </View>
+    
+
+         
 
         </View>
       </ScrollView>
@@ -176,14 +194,32 @@ const styles = StyleSheet.create({
       fontSize: 16,
       color: '#404040',
     },
-    button: {
+    
+  footer: {
+    height: 100,
+    backgroundColor: '#dbead5',
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 30,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+  },
+  iconCon: {
     backgroundColor: '#005C53',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderRadius: 8,
+    width: 50,
+    height: 50,
+    borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: '#ffff',
+    marginRight: 15,
+  },
+  btn: {
+    backgroundColor: '#005C53',
+    flex: 1,
+    height: 50,
+    borderRadius: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
     shadowOffset: {
       width: 0,
       height: 3,
@@ -193,10 +229,6 @@ const styles = StyleSheet.create({
 
     elevation: 6,
   },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
-    textTransform: 'uppercase',
-  },
+  
+
   });
