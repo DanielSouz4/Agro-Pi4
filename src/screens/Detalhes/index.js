@@ -1,6 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState,useLayoutEffect } from "react";
-import { useNavigation } from "@react-navigation/native";
 import { Dimensions, Button, Alert, SafeAreaView,
    StyleSheet, Text, View, Image, TouchableOpacity,ScrollView,Pressable,Share
 } from 'react-native';
@@ -10,45 +9,50 @@ import { getDocs, collection, deleteDoc, doc } from 'firebase/firestore';
 import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-import { isFavorite,saveFavorite, removeItem} from '../../storag/storage';
+import { isFavorite,saveFavorite, removeItem,getFavorites} from '../../storag/storage';
+import Comprar from './../Compra/index';
 
 
 
-export default function Detalhes({ route }) {
-  const navigation = useNavigation();
-  const [favorite, setFavorite] =  useState(false)
+export default function Detalhes({navigation,route}) {
 
-  useLayoutEffect(() => {
-    async function Favoritos(){
-      const receipeFavorite = await isFavorite(route.params?.data)
-      setFavorite(receipeFavorite)
-    }
+  const produto = route.params;
+  const [count, setCount] = useState(1);
+  const [favorite, setFavorite] =  useState(false);
+  const [isfavorite, setIsFavorite] =  useState(false);
 
-    Favoritos();
+  // useLayoutEffect(() => {
+  //   async function Favoritos(){
+  //     const receipeFavorite = await isFavorite(route.params?.data)
+  //     setFavorite(receipeFavorite)
+  //   }
 
-    navigation.setOptions({
-      headerRight: () =>(
-        <Pressable onPress={null}>
-          { favorite ? (
-          <Entypo 
-             name='heart'
-             size={28}
-             color={"#FF4141"}
-             />
-         ) : (
-          <Entypo 
-          name='heart-outlined'
-          size={28}
-          color={"#FF4141"}
-          />
-         )}
-        </Pressable>
-      )
+  //   Favoritos();
+
+  //   navigation.setOptions({
+  //     headerRight: () =>(
+  //       <Pressable onPress={() => recebeFavoritos(route.params.data)}>
+  //         { favorite ? (
+  //         <Entypo 
+  //            name='heart'
+  //            size={28}
+  //            color={"#FF4141"}
+  //            />
+  //        ) : (
+  //         <Entypo 
+  //         name='heart-outlined'
+  //         size={28}
+  //         color={"#FF4141"}
+  //         />
+  //        )}
+  //       </Pressable>
+  //     )
          
-    })
+  //   })
  
-  },[navigation,route.params?.data,favorite])
+  // },[navigation,route.params?.data,favorite])
 
   // async function recebeFavoritos(receipe){
   //   if(favorite){
@@ -72,14 +76,7 @@ export default function Detalhes({ route }) {
     }
   }
 
-  const id = route.params.item;
-  const desc = route.params.desc;
-  const preco = route.params.preco;
-  const titulo = route.params.titulo;
-  const img = route.params.img;
-  const idVendedor = route.params.idUser;
-
-  const [count, setCount] = React.useState(1);
+  
 
   function irCompra(id,titulo,idVendedor,img){
     navigation.navigate("Compra",{id:id,titulo:titulo,idVendedor:idVendedor,img:img})
@@ -87,101 +84,171 @@ export default function Detalhes({ route }) {
 
   return (
     <SafeAreaView>
-        <ScrollView>
-            <View style={styles.imageContainer}>
-                <Image style={styles.image} source={img} />
-            </View>
-              <View style={styles.infoContainer} >
-                  <Text style={styles.frt}>{titulo}</Text>
-                  <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
-                   <Text style={styles.name}>{titulo}</Text>
-                  
-                  <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-evenly'}}>
-                
-                    <Pressable onPress={compartilhar}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            
+            
+          }}>
+          <Image source={{uri:produto.img}} style={{ width: '80%',aspectRatio: 1,borderRadius: 7}} />
+        </View>
+        <View style={styles.details}>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}>
+            <Text
+              style={{fontSize: 25, fontWeight: 'bold', color:'#005C53'}}>
+              {produto.titulo}
+            </Text>
+            
+            <View style={styles.iconContainer}>
+              <Pressable onPress={compartilhar}>
                       <Feather 
                        name='share-2'
                        size={30} 
-                       color='#121212'
-                       style={{paddingRight:25}}
+                       color='#007566'
+                       
                        />
 
-                    </Pressable>
-                  </View>
-                </View>
-
-                <Text style={styles.price} >{preco} R$</Text>
-                <Text style={styles.desc}>Descrição:</Text>
-                <Text style={styles.description}>{desc}</Text>
-
-                <TouchableOpacity style={styles.button}>
-                  <Text style={styles.buttonText}>Comprar</Text>
-                </TouchableOpacity>
-                
-                
-
-                
+              </Pressable>
+             
             </View>
-            <Text style={{fontSize:19,fontWeight:'bold',color:'#404040',marginHorizontal:"3%"}}>Outras Frutas </Text>
-            
-          
-        </ScrollView>
+          </View>
+          <Text style={{fontSize: 23,fontWeight: '600'}} >
+            {produto.preco} R$
+          </Text>
+          <View style={{marginTop: 5, flexDirection: 'row',alignItems:'center',justifyContent:'flex-start'}}>
+             
+             <FontAwesome name={'star'} size={20} color={'#cccc00'} />
+             <FontAwesome name={'star'} size={20} color={'#cccc00'} />
+             <FontAwesome name={'star'} size={20} color={'#cccc00'} />
+             <Text style={styles.ratingText}>4.2</Text>
+           <  Text style={styles.reviewsText}>({233})</Text>
+
+           </View>
+          <Text style={styles.detailsText}>
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s, when an unknown printer took a galley of type
+            and scrambled it to make a type specimen book. It has survived not
+            only five centuries.
+          </Text>
+
+          {/*footer */}
+        <View style={styles.footer}>
+          <View style={styles.iconCon} >
+          <TouchableOpacity onPress={() => setIsFavorite(!isfavorite)} >
+          <Entypo 
+            name= {isfavorite?'heart':'heart'}
+            size={28}
+            color={isfavorite?"#FF4141":"#fff"}
+          />
+          </TouchableOpacity>
+
+          </View>
+          <View style={styles.btn}>
+            <TouchableOpacity style={styles.button}>
+            <Text style={{color: 'white', fontWeight: 'bold'}}>
+              COMPRAR
+            </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+    
+
+        </View>
+      </ScrollView>
     </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
-    imageContainer: {
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: 'white'
-    },
-    image: {
-      width: '100%',
-      aspectRatio: 1,
-      borderRadius: 13
-    },
-    desc : {
-      fontSize: 20,
-      color:'#0f6e3f',
-      fontWeight:'700'
 
+    details: {
+      paddingHorizontal: 20,
+      paddingTop: 40,
+      paddingBottom: 60,
+      backgroundColor: '#ffffff',
+      borderTopRightRadius: 40,
+      borderTopLeftRadius: 40,
+      width:'100%',
+      height:'100%'
     },
-    infoContainer: {
-      padding: 16
+    iconContainer: {
+      backgroundColor: '#f2f2f2',
+      height: 50,
+      width: 50,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 30,
     },
-    name: {
-      fontSize: 22,
-      fontWeight: '400',
-      color:'#0f6e3f'
-    },
-    frt: {
-      fontSize: 22,
-      fontWeight: 'bold',
-      fontWeight:'800',
-      marginBottom: 8,
-    },
-    price: {
-      fontSize: 23,
-      fontWeight: '600',
-      marginBottom: 15,
-    },
-    description: {
+    detailsText: {
+      marginTop: 10,
+      lineHeight: 22,
       fontSize: 16,
-      fontWeight: '400',
       color: '#404040',
-      marginBottom: 16,
     },
     button: {
-      backgroundColor: '#32CD32',
-      paddingVertical: 10,
-      paddingHorizontal: 20,
-      borderRadius: 5,
+    backgroundColor: '#005C53',
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#ffff',
+    shadowOffset: {
+      width: 0,
+      height: 3,
     },
-    buttonText: {
-      color: '#FFFFFF',
-      fontSize: 18,
-      fontWeight: 'bold',
-      textAlign: 'center',
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
+
+    elevation: 6,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
+  },
+  footer: {
+    height: 100,
+    backgroundColor: '#dbead5',
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 30,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+  },
+  iconCon: {
+    backgroundColor: '#005C53',
+    width: 50,
+    height: 50,
+    borderRadius: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 15,
+  },
+  btn: {
+    backgroundColor: '#005C53',
+    flex: 1,
+    height: 50,
+    borderRadius: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowOffset: {
+      width: 0,
+      height: 3,
     },
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
+
+    elevation: 6,
+  },
+  
   });

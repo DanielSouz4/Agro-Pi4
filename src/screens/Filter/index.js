@@ -1,30 +1,53 @@
 import React, { useState,useEffect } from "react";
-import { View,TouchableOpacity,Text,Button,StyleSheet,ScrollView,SafeAreaView,FlatList,Dimensions } from "react-native";
+import { View,Image,TouchableOpacity,Text,Button,StyleSheet,ScrollView,SafeAreaView,FlatList,Dimensions } from "react-native";
 import {collection,addDoc,getDocs,getFirestore,query,where,onSnapshot} from 'firebase/firestore';
 import db from '../../components/config';
+import { FontAwesome5, AntDesign } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
 export default function Filter ({route}){
     const {width}=Dimensions.get('window');
     //const [data,setData] = useState(route.params.data);
     //const [tipo, setTipo]= useState('');
+    const [list,setList]=useState(data);
+    const result= route.params.data
     const [searchText, setSearchText] = useState('');
-    const [list, setList] = useState(results);
-    const results = route.params.data;
-    const tipo = route.params.tipo;
+    const [data,setData] = useState (route.params.data);
+    
+    // const list = (()=>{
+    //     data.filter(
+    //         (item) =>
+    //           item.tipoProduto.toLowerCase().indexOf(tipo.toLowerCase()) > -1
+    //       )
+    // })
+    
+    const [tipo,setTipo] =useState(route.params.tipo);
+    //setTipo(route.params.tipo)
+    
 
-  useEffect(() => {
-    //setTipo(tipo)
-    if (tipo === '') {
-      setList(results);
-    } else {
-      setList(
-        results.filter(
-          (item) =>
-            item.tipo.toLowerCase().indexOf(tipo.toLowerCase()) > -1
-        )
-      );
-    }
-  },[tipo]);
+    useEffect(() => {
+        if (tipo === '') {
+            setList(data);
+        } else {
+            setList(
+                data.filter(
+                    (item) =>
+                        item.tipoProduto.toLowerCase().indexOf(tipo.toLowerCase()) > -1
+                )
+            );
+        }
+    }, []);
+//   function lista(data,tipo){
+//     const [res,setRes] = useState([]);
+//     setRes(
+//         data.filter(
+//             (data) =>
+//             data.tipo.toLowerCase().indexOf(tipo.toLowerCase())>-1
+//         )
+//     )
+//     return
+//     res;
+
+//   }
 
 //   const handleOrderClick = () => {
 //     let newList = [...results];
@@ -38,7 +61,7 @@ export default function Filter ({route}){
         <View>
           <SafeAreaView>
                 
-             
+             <Text>{list}</Text>
         <ScrollView>
 
         <FlatList 
@@ -54,7 +77,7 @@ export default function Filter ({route}){
                                 
                                 <Image style={styles.img03}source={{uri: item.img,}} />
                         
-                            <TouchableOpacity onPress={() => irDetalhes(item.id,item.descricao,item.preco,item.titulo,item.img,item.idUser)} style={{justifyContent:'center', alignItems:'center'}} style={styles.texto03 } >
+                            <TouchableOpacity onPress={() => irDetalhes(item.id,item.descricao,item.preco,item.titulo,item.img,item.idUser)} style={{justifyContent:'center', alignItems:'center'}} >
                                 <Text style={{fontSize: 18, color: 'black', paddingBottom: 10}}>{item.titulo}</Text>
                                 <View style={{flex:1 , flexDirection: 'row', marginTop: 5, width: 140}}>
                                     <AntDesign name="star" size={19} color="#FFC700" />
@@ -223,9 +246,7 @@ export default function Filter ({route}){
             height:Dimensions.get('window').height*0.30,
             borderRadius: 25,
             marginHorizontal: 10,
-            backgroundColor: '#fee',
-            
-            
+            backgroundColor: '#fee',    
         
           },
           containerProdutos: {

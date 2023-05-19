@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
-import { Image, TextInput, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Image, TextInput, View, Text, StyleSheet, TouchableOpacity,SafeAreaView } from 'react-native';
+//import { ViewPropTypes } from 'deprecated-react-native-prop-types';
+import { db } from '../../components/config';
 import {auth} from '../../components/config';
+
+import {AsyncStorage} from 'react-native';
 import {createUserWithEmailAndPassword,signInWithEmailAndPassword} from 'firebase/auth';
+//import { ViewPropTypes } from 'react-native';
+
 export default function Login({navigation}) {
 
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
+    const bgImage = require('../../images/BgAgro1.jpg')
 
     async function Login(){
         await signInWithEmailAndPassword(auth,email,password)
@@ -15,17 +22,19 @@ export default function Login({navigation}) {
     };
 
  return (
-    <View style={styles.view}>
-        <Image 
-            source={require('../../images/Login.png')} 
-            style={styles.image} 
-        />
-        <Text style={styles.header}>Login</Text>
+    <View style={styles.container}>
+
+        <Image source={bgImage} style={styles.backImage} />
+        <View style={styles.whiteSheet} />
+
+        <SafeAreaView style = {styles.form}>
+
+        <Text style={styles.title}>Login</Text>
 
         <TextInput 
             value={email}
             onChangeText={setEmail}
-            style={styles.input2}
+            style={styles.input3}
             placeholder="Digite seu email..."
             placeholderTextColor="#32CD32"
         />
@@ -34,7 +43,7 @@ export default function Login({navigation}) {
             value={password}
             secureTextEntry={true}
             onChangeText={setPassword}
-            style={styles.input2}
+            style={styles.input3}
             placeholderTextColor="#32CD32"
             placeholder="Digite sua senha..."
            // placeholderTextColor="#FFF"
@@ -47,35 +56,41 @@ export default function Login({navigation}) {
             <Text style={styles.txtButton}>Entrar</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={{marginBottomWdith:1,marginBottomColor:'#fff',width:80,marginTop:10,borderColor:'#fff',borderBottomWidth:1, justifyContent:'center',alignItems:'center'}} onPress={()=>navigation.navigate('Register')}>
-        <Text style={{color:'black', marginTop:5, fontWeight:'bold'}} >Cadastre-se</Text>
-        </TouchableOpacity>
+        {/* <TouchableOpacity onPress={()=>navigation.navigate('Register')}>
+        <Text style={{color:'black', marginTop:5, fontWeight:'bold', alignSelf: 'center'}} >Cadastre-se</Text>
+        </TouchableOpacity> */}
+
+        <View style={{marginTop: 20, flexDirection: 'row', alignItems: 'center', alignSelf: 'center'}}>
+            <Text style={{color: 'gray', fontWeight: '600', fontSize: 14}}>Não tem uma conta? </Text>
+            <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+                <Text style={{color: '#333333', fontWeight: '600', fontSize: 14, fontWeight: 'bold'}}> Cadastre-se</Text>
+            </TouchableOpacity>
+        </View>
+
+        </SafeAreaView>
 
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-    view: {
+    container: {
         flex: 1,
-        paddingHorizontal: 25,
-        backgroundColor: '#FFFFFF',
-        width: '100%',
-        height:'100%',
-        justifyContent: 'center',
-        alignItems: 'center'
+        backgroundColor: "#fff",
     },
-    image: {
-        width: 120,
-        height: 120,
-        marginBottom: 15,
-        
+    backImage: {
+      width: "100%",
+      height: 340,
+      position: "absolute",
+      top: 0,
+      resizeMode: 'cover',
     },
-    header: {
+    title: {
         fontSize: 34,
         color: 'green',
         fontWeight: 'bold',
         marginBottom:20,
+        alignSelf: 'center',
     },
     input: {
         width: '90%',
@@ -92,26 +107,40 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         fontSize: 20
     },
-    input2: {
-        width: '90%',
-        height: 40,
-        borderColor: '#000000',
-        borderBottomWidth: 1,
-        marginBottom: 36,
-        fontSize: 20
-    },
+    
     button: {
         backgroundColor: '#32CD32',
-        width: '90%',
-        height: 50,
+        height: 58,
+        borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 10,
-        borderRadius: 10
-    },
+        marginTop: 40,
+      },
     txtButton: {
         color: '#000',
         fontSize: 20,
         fontWeight: 'bold'
-    }
+    },
+    whiteSheet: {
+        width: '100%',
+        height: '75%',
+        position: "absolute",
+        bottom: 0,
+        backgroundColor: '#fff',
+        borderTopLeftRadius: 60,
+      },
+      form: {
+        flex: 1,
+        justifyContent: 'center',
+        marginHorizontal: 30,
+      },
+      input3: {
+        backgroundColor: "#F6F7FB",
+        height: 58,
+        marginBottom: 20,
+        fontSize: 16,
+        borderRadius: 10,
+        padding: 12,
+      }
+      
 })
