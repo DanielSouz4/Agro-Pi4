@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
         fontSize: 18, 
         fontWeight: 'bold', 
         color:'#333333', 
-        paddingLeft: 20
+        paddingLeft: 10
     },
     itemButtons: {
         paddingLeft: 10,

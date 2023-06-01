@@ -149,7 +149,7 @@ export default function Detalhes({navigation,route}) {
           </View>
           <View style={styles.btn}>
             <TouchableOpacity style={styles.button}>
-            <Text style={{color: 'white', fontWeight: 'bold'}} onPress={()=>irCompra(produto.id,produto.titulo,produto.idVendedor,produto.img)}>
+            <Text style={{color: 'white', fontWeight: 'bold'}} onPress={()=>irCompra(produto.id,produto.titulo,produto.idUser,produto.img)}>
               COMPRAR
             </Text>
             </TouchableOpacity>
