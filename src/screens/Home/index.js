@@ -76,6 +76,50 @@ const produtosCategorias = [
     );
   };
 
+  // ============  notificação ===========
+// const requestUserPermission = async()=> {
+//     const authStatus = await messaging().requestPermission();
+//     const enabled =
+//       authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+//       authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+  
+//     if (enabled) {
+//       console.log('Authorization status:', authStatus);
+//     }
+// };
+// useEffect(()=>{
+//     if (requestUserPermission()){
+//         //retun token do dipositivo
+//         messaging().getToken().then(token=>{
+//             console.log(token)
+//         });
+//     }
+//     else{
+//         console.log("Falha ao conseguir Token",authStatus)
+//     }
+//     // Assume a message-notification contains a "type" property in the data payload of the screen to open
+
+//     messaging().onNotificationOpenedApp(async (remoteMessage) => {
+//         console.log(
+//           'Notification caused app to open from background state:',
+//           remoteMessage.notification,
+//         );
+//         navigation.navigate(remoteMessage.data.type);
+//       });
+//     // Register background handler
+//     messaging().setBackgroundMessageHandler(async remoteMessage => {
+//         console.log('Message handled in the background!', remoteMessage);
+//     });
+//   //parei no tempo 05:35
+//   const unsubscribe = messaging().onMessage(async remoteMessage => {
+//     Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+//   });
+
+//   return unsubscribe;
+
+// },[]);
+//======== fim - notificação===========//
+
 export default function Home({navigation}) {
 
     // const statusBarHeight = StatusBar.currentHeight || 0; // Obtenha a altura da barra de status (ou 0 se não for possível determinar)
@@ -139,7 +183,7 @@ export default function Home({navigation}) {
                 setData(users);
                 //setList(data)
             });
-    },[data]);
+    },[]);
     
 
     useEffect(() => {
