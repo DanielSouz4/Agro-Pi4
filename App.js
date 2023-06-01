@@ -7,6 +7,7 @@ import Login from './src/screens/Login';
 import Register from './src/screens/Register';
 import Home from './src/screens/Home';
 import Add from './src/screens/Mov';
+import Favoritos from './src/screens/Favoritos';
 
 
 import Detalhes from './src/screens/Detalhes';
@@ -96,7 +97,7 @@ function Tabs(){
     }
   }
   />
-    <Tab.Screen name="Favoritos" component={Add} options={{
+    <Tab.Screen name="Favoritos" component={Favoritos} options={{
       
       tabBarIcon: ({focused}) => (
         <View style={{alignItems:'center',justifyContent:'center', top:2}}>

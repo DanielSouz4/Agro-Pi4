@@ -84,7 +84,7 @@ export default function Home({navigation}) {
     const [searchText, setSearchText] = useState('');
 
     
-    console.log(data);
+    
     const fliterPro = index => {
       const currentProducts = data.filter(
         item => item?.tipoProduto?.toUpperCase() == produtosCategorias[index].name.toUpperCase(),
@@ -100,6 +100,7 @@ export default function Home({navigation}) {
     
     useEffect(() => {
       fliterPro(0);
+      console.log(data);
     }, []);
 
 
@@ -137,7 +138,7 @@ export default function Home({navigation}) {
                 setData(users);
                 //setList(data)
             });
-    },[data]);
+    });
     
 
     useEffect(() => {
@@ -242,16 +243,16 @@ export default function Home({navigation}) {
 
             </View>
 
-            {/* iniciando a flatlist */}
-            <View style={{marginTop: 20}}>
-                    <FlatList
-                showsVerticalScrollIndicator={false}
-                data={filterproduto}
-                renderItem={({item}) => (
-                    <Card produto={item} navigation={navigation} />
-                )}
-                />
-            </View>
+         {/* iniciando a flatlist */}
+         <View style={{ marginTop: 20 }}>
+           <FlatList
+             showsVerticalScrollIndicator={false}
+             data={filterproduto}
+             renderItem={({ item }) => (
+               <Card produto={item} navigation={navigation} />
+             )}
+           />
+         </View>
 
         
 
