@@ -8,27 +8,44 @@ import {db} from '../../components/config'
 export default function Note (){
   const userId=auth.currentUser.uid;
   const [ data, setData ] = useState([]);
+  const filtroChat = (item)=> item.idVendedor == userId;
 
 //   const [ data, setData ] = useState([]);
-    useEffect(() =>{
-        const getData = ()=> {
-            const db = getFirestore();
-            const colRef = collection(db,'chat')
-            var dados = [];
-            const q = query(colRef, where('idVendedor','==',userId))
-
-            onSnapshot(q,(snapshot) =>{
-                // var dados = [];
-                snapshot.docs.map((doc)=>{
-                    dados.push({...doc.data(), id:doc.id})
+useEffect(() => {
+    getDocs(collection(db, 'chat')).then(
+        (docSnap) => {
+            const users = [];
+            docSnap.forEach((doc) => {
+                users.push({ 
+                    ...doc.data(), 
+                    id: doc.id
                 })
-                
-            });
-                setData(dados);
-        }
-        getData()
+            })
+            setData(users.filter(filtroChat));
+            //setList(data)
+        });
+},[]);
+    
 
-    },[])
+    // useEffect(() =>{
+    //     const getData = ()=> {
+    //         const db = getFirestore();
+    //         const colRef = collection(db,'chat')
+    //         var dados = [];
+    //         const q = query(colRef, where('idVendedor','==',userId))
+
+    //         onSnapshot(q,(snapshot) =>{
+    //             // var dados = [];
+    //             snapshot.docs.map((doc)=>{
+    //                 dados.push({...doc.data(), id:doc.id})
+    //             })
+                
+    //         });
+    //             setData(dados);
+    //     }
+    //     getData()
+
+    // },[])
 
 //   useEffect(() => {
 //     getDocs(collection(db, 'chat')).then(
@@ -57,32 +74,38 @@ export default function Note (){
 // });
   
   return (
-    <View>
+      <View style={styles.container}>
           <FlatList
               data={data}
               renderItem={
                   ({ item }) => (
-                      <View style={{paddingBottom: 10, paddingLeft: 5, paddingTop: 10}}>
-                          
+                      <View style={{ paddingBottom: 10, paddingLeft: 5, paddingTop: 10 }}>
 
-                          <View style={{ flexDirection: 'column', backgroundColor: '#ffff',elevation: 20 }}>
-                              <Text style={styles.titulo}>{item.titulo}</Text>
-                              <Image source={{uri:item.link}} style={styles.image} />
-                              <Text style={{ padding: 2, color: '333333', fontWeight: 'bold', fontSize: 16, paddingLeft: 10}}>Nome:  {item.nomeComprador}</Text>
 
-                              <Text style={{ color: '#333333', fontWeight: 'bold', fontSize: 16, paddingLeft: 10 }}>endereço:  {item.enderreco}</Text>
-                              <Text style={{color:'#333333', fontWeight: 'bold', fontSize: 16, paddingLeft: 10}}>Mensagem(Opcional): {item.mensagem}</Text>
-                            
-                              <View style={styles.itemButtons}>
-                              <TouchableOpacity
-                                  //onPress={() => irDetalhes(item.id, item.descricao, item.preco, item.titulo, item.img, item.idUser)}
-                              >
-                                  <AntDesign name="eye" size={26} color="#32CD42" />
-                              </TouchableOpacity>
+                          <View style={{ flexDirection: 'row', backgroundColor: '#ffff', elevation: 20 }}>
+
+
+                              <Image source={{ uri: item.link }} style={styles.image} />
+                              <View>
+                                  <Text style={styles.titulo}>{item.titulo}</Text>
+
+                                  <Text style={{ padding: 2, color: '333333', fontWeight: 'bold', fontSize: 16, paddingLeft: 10 }}>Nome:  {item.nomeComprador}</Text>
+
+                                  <Text style={{ color: '#333333', fontWeight: 'bold', fontSize: 16, paddingLeft: 10 }}>endereço:  {item.enderreco}</Text>
+                                  <Text style={{ color: '#333333', fontWeight: 'bold', fontSize: 16, paddingLeft: 10 }}>Mensagem: {item.mensagem}</Text>
+
+                                  <View style={styles.itemButtons}>
+                                      <TouchableOpacity
+                                      //onPress={() => irDetalhes(item.id, item.descricao, item.preco, item.titulo, item.img, item.idUser)}
+                                      >
+                                          <AntDesign name="eye" size={26} color="#32CD42" />
+                                      </TouchableOpacity>
+
+                                  </View>
+                              </View>
                           </View>
-                          </View>
 
-                          
+
                       </View>
                   )}
               keyExtractor={item => item.id}
@@ -102,7 +125,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    marginTop:30,
+    marginTop:40,
     
   },
 
@@ -134,7 +157,7 @@ const styles = StyleSheet.create({
         fontSize: 18, 
         fontWeight: 'bold', 
         color:'#333333', 
-        paddingLeft: 20
+        paddingLeft: 10
     },
     itemButtons: {
         paddingLeft: 10,

@@ -19,10 +19,12 @@ const Styles = StyleSheet.create({
     padding:8,
     paddingLef:20,
     paddingRight:16,
-    borderTopRightRadius:8,
-    borderBottomLeftRadius:8,
-    borderTopLeftRadius:8,
-    borderBottomRightRadius:32,
+    borderTopRightRadius:13,
+    borderBottomLeftRadius:3,
+    borderTopLeftRadius:35,
+    borderBottomRightRadius:35,
+    
+
     
     
   },

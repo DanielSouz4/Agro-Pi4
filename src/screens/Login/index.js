@@ -1,17 +1,18 @@
-import React, {useState,useEffect} from 'react';
-import { Image, TextInput, View, Text, StyleSheet, TouchableOpacity,Animated,Keyboard } from 'react-native';
+import React, { useState } from 'react';
+import { Image, TextInput, View, Text, StyleSheet, TouchableOpacity,SafeAreaView } from 'react-native';
+//import { ViewPropTypes } from 'deprecated-react-native-prop-types';
+import { db } from '../../components/config';
 import {auth} from '../../components/config';
+
+import {AsyncStorage} from 'react-native';
 import {createUserWithEmailAndPassword,signInWithEmailAndPassword} from 'firebase/auth';
+//import { ViewPropTypes } from 'react-native';
 
 export default function Login({navigation}) {
 
-    const [offset] = useState(new Animated.ValueXY({x: 0, y: 95}));
-    const [opacity] = useState(new Animated.Value(0));
-    const [logo] = useState(new Animated.ValueXY({x: 130, y:130}));
-
-
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
+    const bgImage = require('../../images/BgAgro1.jpg')
 
     async function Login(){
         await signInWithEmailAndPassword(auth,email,password)
@@ -20,91 +21,20 @@ export default function Login({navigation}) {
         ).catch(error => alert('Login não efetuado!!'));
     };
 
-    useEffect(()=> {
-        KeyboardDidShowListener = Keyboard.addListener('keyboardDidShow', keyboardDidShow);
-        KeyboardDidHideListener = Keyboard.addListener('keyboardDidHide', KeyboardDidHide);
-        Animated.parallel([
-            Animated.spring(offset, {
-                toValue: 0,
-                speed: 4,
-                bounciness: 10,
-                
-            }).start(),
-            Animated.timing(opacity, {
-                toValue: 1,
-                duration: 1000,
-                
-            }).start(),
-        ])
-
-
-    }, []);
-
-    function keyboardDidShow(){
-        
-        Animated.parallel([
-            Animated.timing(logo.x, {
-                toValue:55,
-                duration:100,
-                
-            }),
-            Animated.timing(logo.y, {
-                toValue:55,
-                duration:100,
-                
-            })
-        ]).start();
-
-    }
-
-    function KeyboardDidHide(){
-        Animated.parallel([
-            Animated.timing(logo.x, {
-                toValue:130,
-                duration:100,
-            }),
-            Animated.timing(logo.y, {
-                toValue:130,
-                duration:100
-            })
-        ]).start();
-
-    }
-
  return (
+    <View style={styles.container}>
 
-    <View style={styles.view}>
+        <Image source={bgImage} style={styles.backImage} />
+        <View style={styles.whiteSheet} />
 
-        <View style={styles.containerImg}>
+        <SafeAreaView style = {styles.form}>
 
-        <Animated.Image 
-            source={require('../../images/agro.png')} 
-            resizeMode='contain'
-            style={{
-                width:logo.x,
-                height:logo.y,
-            }}
-        />
-
-        </View>
-
-        <Animated.View style={[
-						styles.containerInput,
-						{
-							opacity: opacity,
-							transform: [
-								{
-									translateY: offset.y,
-								},
-							],
-						},
-					]}
-                    >
+        <Text style={styles.title}>Login</Text>
 
         <TextInput 
             value={email}
             onChangeText={setEmail}
-            style={styles.input2}
+            style={styles.input3}
             placeholder="Digite seu email..."
             placeholderTextColor="#32CD32"
         />
@@ -112,9 +42,8 @@ export default function Login({navigation}) {
         <TextInput 
             value={password}
             secureTextEntry={true}
-            autoCorrect={false}
             onChangeText={setPassword}
-            style={styles.input2}
+            style={styles.input3}
             placeholderTextColor="#32CD32"
             placeholder="Digite sua senha..."
            // placeholderTextColor="#FFF"
@@ -127,78 +56,91 @@ export default function Login({navigation}) {
             <Text style={styles.txtButton}>Entrar</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity>
-            <Text style={{color:'black',fontSize:15,fontStyle:'italic'}} >Cadastre-se</Text>
-        </TouchableOpacity>
+        {/* <TouchableOpacity onPress={()=>navigation.navigate('Register')}>
+        <Text style={{color:'black', marginTop:5, fontWeight:'bold', alignSelf: 'center'}} >Cadastre-se</Text>
+        </TouchableOpacity> */}
 
-        </Animated.View>
+        <View style={{marginTop: 20, flexDirection: 'row', alignItems: 'center', alignSelf: 'center'}}>
+            <Text style={{color: 'gray', fontWeight: '600', fontSize: 14}}>Não tem uma conta? </Text>
+            <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+                <Text style={{color: '#333333', fontWeight: '600', fontSize: 14, fontWeight: 'bold'}}> Cadastre-se</Text>
+            </TouchableOpacity>
+        </View>
+
+        </SafeAreaView>
 
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-    view: {
+    container: {
         flex: 1,
-        backgroundColor: '#dbead5',
-        justifyContent: 'center',
-        alignItems: 'center'
+        backgroundColor: "#fff",
     },
-    containerImg:{
-        flex:1,
-        justifyContent:'center',
-        
+    backImage: {
+      width: "100%",
+      height: 340,
+      position: "absolute",
+      top: 0,
+      resizeMode: 'cover',
     },
-    image: {
-        width: 130,
-        height: 110,
-        
-    },
-    containerInput:{
-        flex:1,
-        alignItems:'center',
-        justifyContent:'center',
-        width:'90%',
-        padding:10,
-        marginTop:50,
-        
+    title: {
+        fontSize: 34,
+        color: 'green',
+        fontWeight: 'bold',
+        marginBottom:20,
+        alignSelf: 'center',
     },
     input: {
         width: '90%',
         height: 50,
-        padding: 10,
-        marginBottom: 15,
-        fontSize:17,
+        
+        padding: 15,
+        marginVertical: 10,
+        
         borderColor: '#0C600C',
         borderWidth: 1,
-        borderRadius: 7,
+        borderRadius: 10,
+        
         backgroundColor: '#000',
         color: '#FFFFFF',
-        fontSize: 20,
-        
-    },
-    input2: {
-        width: '90%',
-        height: 40,
-        borderColor: '#000000',
-        borderBottomWidth: 1,
-        marginBottom: 36,
         fontSize: 20
     },
+    
     button: {
-        backgroundColor: '#32CD32',
-		width: '90%',
-		height: 45,
-		justifyContent: 'center',
-		alignItems: 'center',
-		marginBottom: 15,
-		borderRadius: 7
-        
-    },
+        backgroundColor: '#005C53',
+        height: 58,
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 40,
+      },
     txtButton: {
-        color: '#000',
-        fontSize: 18,
+        color: '#fff',
+        fontSize: 20,
         fontWeight: 'bold'
-    }
-
+    },
+    whiteSheet: {
+        width: '100%',
+        height: '75%',
+        position: "absolute",
+        bottom: 0,
+        backgroundColor: '#fff',
+        borderTopLeftRadius: 60,
+      },
+      form: {
+        flex: 1,
+        justifyContent: 'center',
+        marginHorizontal: 30,
+      },
+      input3: {
+        backgroundColor: "#F6F7FB",
+        height: 58,
+        marginBottom: 20,
+        fontSize: 16,
+        borderRadius: 10,
+        padding: 12,
+      }
+      
 })

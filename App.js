@@ -9,7 +9,6 @@ import Home from './src/screens/Home';
 import Add from './src/screens/Mov';
 import Favoritos from './src/screens/Favoritos';
 
-
 import Detalhes from './src/screens/Detalhes';
 import Compra from './src/screens/Compra';
 
@@ -164,7 +163,7 @@ function Tabs(){
       )
     }
   }/>
-    <Tab.Screen name="Chat" component={Register} options={{
+    <Tab.Screen name="Chat" component={Notificacao} options={{
       tabBarIcon: ({focused}) => (
         <View style={{alignItems:'center',justifyContent:'center', top:2}}>
           
@@ -193,7 +192,7 @@ function Tabs(){
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="Login">
         <Stack.Screen name="Home" component={Tabs} options={{headerShown: false}}  />
         <Stack.Screen name="Register" component={Register} options={{headerShown:false}} />
         <Stack.Screen name="Login" component={Login} options={{headerShown: false}} />

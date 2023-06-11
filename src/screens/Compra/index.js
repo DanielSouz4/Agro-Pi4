@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from "react";
-import { View,StyleSheet,Text,TextInput,TouchableOpacity, Image } from "react-native";
+import { View,StyleSheet,Text,TextInput,TouchableOpacity, Image,KeyboardAvoidingView, ScrollView } from "react-native";
 import {auth} from '../../components/config';
 import {db} from '../../components/config';
 import {collection,addDoc} from 'firebase/firestore';
@@ -34,7 +34,12 @@ export default function Comprar({route}){
           })
           }
     return(
-        <View>
+        <ScrollView>
+        {/* <KeyboardAvoidingView
+            style={styles.view}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        > */}
+            <View style={styles.inner}>
             <View style={{padding: 15, alignContent: 'center', alignItems:'center'}}>
                 <Feather name = 'shopping-bag' size={100} color='#32CD32'></Feather>
                 <Text style={{fontSize: 26, textAlign: 'center'}}>Preencha as informações para envio do seu pedido</Text>
@@ -76,13 +81,15 @@ export default function Comprar({route}){
                 <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', padding: 15,marginTop:20 }}>
                     <TouchableOpacity
                         onPress={() => creator()}
-                        style={{ backgroundColor: '#32CD32', width: 180, alignItems: 'center', justifyContent: 'center', height: 48, borderRadius: 12, borderWidth: 1, borderColor: '#2F4F4F'}}><Text style={{ fontWeight: '400', fontSize: 20, color: '#333333', padding: 5 }}>COMPRAR</Text>
+                        style={{ backgroundColor: '#005C53', width: 180, alignItems: 'center', justifyContent: 'center', height: 48, borderRadius: 12, borderWidth: 1, borderColor: '#2F4F4F'}}><Text style={{ fontWeight: '400', fontSize: 20, color: '#ffff', padding: 5 }}>COMPRAR</Text>
                         
                     </TouchableOpacity>
                 </View>
 
             </View>
-        </View>
+            </View>
+        {/* </KeyboardAvoidingView> */}
+        </ScrollView>
 
     )
 }
@@ -93,6 +100,12 @@ const styles = StyleSheet.create({
       backgroundColor: '#33333',
       marginTop: 10,
     },
+    inner: {
+        padding: 24,
+        flex: 1,
+        justifyContent: 'space-around',
+        width:"100%"
+      },
   
     // input: {
     //     width: '90%',
@@ -116,7 +129,16 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         marginBottom: 36,
         fontSize: 18
-    }
+    },
+    view: {
+        flex: 1,
+        //paddingHorizontal: 15,
+        backgroundColor: '#fff',
+        //width: '100%',
+        //justifyContent: 'center',
+        //alignItems: 'center',
+        //paddingVertical:30
+    },
     
   }
 ) ; 

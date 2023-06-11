@@ -23,7 +23,7 @@ import Comprar from './../Compra/index';
 
 
 
-export default function Detalhes({navigation,route,id}) {
+export default function Detalhes({navigation,route}) {
 
   const produto = route.params;
   const [count, setCount] = useState(1);
@@ -146,7 +146,7 @@ export default function Detalhes({navigation,route,id}) {
 
            </View>
           <Text style={styles.detailsText}>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
+            {/* {produto.descricao} */}Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem Ipsum has been the industry's standard dummy text
             ever since the 1500s, when an unknown printer took a galley of type
             and scrambled it to make a type specimen book. It has survived not
@@ -160,13 +160,13 @@ export default function Detalhes({navigation,route,id}) {
           <Entypo 
             name= {isfavorite ? 'heart':'heart'}
             size={28}
-            color={isfavorite ?"#FF4141":"#fff"}
+            color={isfavorite ?'#32CD32':"#fff"}
           />
           </TouchableOpacity>
 
           </View>
           <View style={styles.btn}>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={irCompra}>
             <Text style={{color: 'white', fontWeight: 'bold'}}>
               COMPRAR
             </Text>
@@ -189,11 +189,12 @@ const styles = StyleSheet.create({
       paddingHorizontal: 20,
       paddingTop: 40,
       paddingBottom: 60,
-      backgroundColor: '#dbead5',
+      backgroundColor: '#DCDCDC',
       borderTopRightRadius: 40,
       borderTopLeftRadius: 40,
       width:'100%',
-      height:'100%'
+      
+      
     },
     iconContainer: {
       backgroundColor: '#f2f2f2',
@@ -212,7 +213,7 @@ const styles = StyleSheet.create({
     
   footer: {
     height: 100,
-    backgroundColor: '#dbead5',
+    backgroundColor: '#DCDCDC',
     borderTopRightRadius: 20,
     borderTopLeftRadius: 30,
     flexDirection: 'row',

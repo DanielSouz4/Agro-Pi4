@@ -6,16 +6,16 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 
 
-const Card = ({produto, navigation}) => {
+const Card = ({ produto, navigation }) => {
   return (
     <TouchableOpacity
       activeOpacity={0.8}
-      onPress={() => navigation.navigate('Detalhes',produto)}>
+      onPress={() => navigation.navigate('Detalhes', produto)}>
       <View style={styles.cardContainer}>
         {/* image */}
         <View style={styles.cardImageContainer}>
           <Image
-            source={{ uri:produto.img }}
+            source={{ uri: produto.img }}
             style={{
               width: '100%',
               height: '100%',
@@ -59,7 +59,7 @@ const Card = ({produto, navigation}) => {
 
 
 
-export default function Favoritos({ navigation}) {
+export default function Favoritos({ navigation }) {
   const [favoriteProducts, setFavoriteProducts] = useState([]);
 
 
@@ -87,9 +87,13 @@ export default function Favoritos({ navigation}) {
   return (
     <SafeAreaView style={styles.container}>
 
+      {favoriteProducts.length === 0 && (
+        <Text>Voçê ainda nao tem nenhuma receita salva</Text>
+      )}
+
       {favoriteProducts.map((produto) => (
-        <ScrollView showsVerticalScrollIndicator={false} style={{paddingTop:42}}>
-           <Text style={styles.title}>Receitas favoritas</Text>
+        <ScrollView showsVerticalScrollIndicator={false} style={{ paddingTop: 42 }}>
+          <Text style={styles.title}>Receitas favoritas</Text>
 
           <View style={styles.mainContainer} >
 
@@ -113,7 +117,7 @@ export default function Favoritos({ navigation}) {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    backgroundColor: '#dbead5',
+    backgroundColor: '#DCDCDC',
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
     marginTop: 20,
@@ -157,7 +161,7 @@ const styles = StyleSheet.create({
     color: '#005C53',
     fontWeight: 'bold',
     fontSize: 24,
-    textAlign:'center'
+    textAlign: 'center'
   }
 
 })
