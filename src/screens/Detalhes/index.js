@@ -1,17 +1,24 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState,useLayoutEffect } from "react";
 import { Dimensions, Button, Alert, SafeAreaView,
-   StyleSheet, Text, View, Image, TouchableOpacity,ScrollView,Pressable,Share
+   StyleSheet, Text, View, Image, TouchableOpacity,ScrollView,Pressable,Share, TouchableOpacityBase
 } from 'react-native';
 ///import { getProduct } from "../../components/banco";
-import { getDocs, collection, deleteDoc, doc } from 'firebase/firestore';
+
+
+import { collection, doc, updateDoc, arrayUnion, arrayRemove,getDoc } from 'firebase/firestore';
+import { db } from '../../components/config';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 
 import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-import { isFavorite,saveFavorite, removeItem,getFavorites} from '../../storag/storage';
+// import { isFavorite,saveFavorite, removeItem,getFavorites} from '../../storag/storage'
+
 import Comprar from './../Compra/index';
 
 
@@ -20,49 +27,56 @@ export default function Detalhes({navigation,route}) {
 
   const produto = route.params;
   const [count, setCount] = useState(1);
-  const [favorite, setFavorite] =  useState(false);
   const [isfavorite, setIsFavorite] =  useState(false);
+  const [products, setProducts] = useState([]);
 
-  // useLayoutEffect(() => {
-  //   async function Favoritos(){
-  //     const receipeFavorite = await isFavorite(route.params?.data)
-  //     setFavorite(receipeFavorite)
-  //   }
+  useEffect(() => {
+    // Função assíncrona para buscar o estado de favorito do produto no Firestore
+    async function fetchFavoriteStatus() {
+      try {
+        const productRef = doc(db, 'anuncios', produto.id);
+        const productDoc = await getDoc(productRef);
 
-  //   Favoritos();
+        if (productDoc.exists()) {
+          const favoriteStatus = productDoc.data().favorito || false;
+          setIsFavorite(favoriteStatus);
+        }
+      } catch (error) {
+        console.error('Erro ao buscar o status de favorito do produto:', error);
+      }
+    }
 
-  //   navigation.setOptions({
-  //     headerRight: () =>(
-  //       <Pressable onPress={() => recebeFavoritos(route.params.data)}>
-  //         { favorite ? (
-  //         <Entypo 
-  //            name='heart'
-  //            size={28}
-  //            color={"#FF4141"}
-  //            />
-  //        ) : (
-  //         <Entypo 
-  //         name='heart-outlined'
-  //         size={28}
-  //         color={"#FF4141"}
-  //         />
-  //        )}
-  //       </Pressable>
-  //     )
-         
-  //   })
+    fetchFavoriteStatus();
+  }, [produto.id]);
+
+  async function toggleFavorite() {
+    try {
+      const productRef = doc(db, 'anuncios',produto.id);
+      const productDoc = await getDoc(productRef);
+      await updateDoc(productRef, { favorito: !isfavorite });
+      setIsFavorite(!isfavorite);
+      if (productDoc.exists()) {
+        const productData = productDoc.data();
+        const currentFavoriteStatus = productData && productData.favorito ? productData.favorito : false;
+        await updateDoc(productRef, { favorito: !currentFavoriteStatus });
+        setIsFavorite(!currentFavoriteStatus);
+      }
+    } catch (error) {
+      console.error('Erro ao favoritar o produto:', error);
+    }
+  }
+
+
+  
+
+  
+
  
-  // },[navigation,route.params?.data,favorite])
+  
 
-  // async function recebeFavoritos(receipe){
-  //   if(favorite){
-  //     await removeItem(receipe.id)
-  //     setFavorite(false)
-  //   }else{
-  //     await saveFavorite("@agrodigital",  receipe)
-  //     setFavorite(true)
-  //   }
-  // }
+
+  
+  
 
   async function compartilhar(){
     try {
@@ -132,30 +146,36 @@ export default function Detalhes({navigation,route}) {
 
            </View>
           <Text style={styles.detailsText}>
-            {produto.desc}
+            {/* {produto.descricao} */}Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s, when an unknown printer took a galley of type
+            and scrambled it to make a type specimen book. It has survived not
+            only five centuries.
           </Text>
 
-          {/*footer */}
+           {/*footer */}
         <View style={styles.footer}>
           <View style={styles.iconCon} >
-          <TouchableOpacity onPress={() => setIsFavorite(!isfavorite)} >
+          <TouchableOpacity onPress={() => toggleFavorite()} >
           <Entypo 
-            name= {isfavorite?'heart':'heart'}
+            name= {isfavorite ? 'heart':'heart'}
             size={28}
-            color={isfavorite?"#FF4141":"#fff"}
+            color={isfavorite ?'#32CD32':"#fff"}
           />
           </TouchableOpacity>
 
           </View>
           <View style={styles.btn}>
-            <TouchableOpacity style={styles.button}>
-            <Text style={{color: 'white', fontWeight: 'bold'}} onPress={()=>irCompra(produto.id,produto.titulo,produto.idUser,produto.img)}>
+            <TouchableOpacity style={styles.button} onPress={irCompra}>
+            <Text style={{color: 'white', fontWeight: 'bold'}}>
               COMPRAR
             </Text>
             </TouchableOpacity>
           </View>
         </View>
     
+
+         
 
         </View>
       </ScrollView>
@@ -169,11 +189,12 @@ const styles = StyleSheet.create({
       paddingHorizontal: 20,
       paddingTop: 40,
       paddingBottom: 60,
-      backgroundColor: '#ffffff',
+      backgroundColor: '#DCDCDC',
       borderTopRightRadius: 40,
       borderTopLeftRadius: 40,
       width:'100%',
-      height:'100%'
+      
+      
     },
     iconContainer: {
       backgroundColor: '#f2f2f2',
@@ -189,32 +210,10 @@ const styles = StyleSheet.create({
       fontSize: 16,
       color: '#404040',
     },
-    button: {
-    backgroundColor: '#005C53',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: '#ffff',
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
-
-    elevation: 6,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
-    textTransform: 'uppercase',
-  },
+    
   footer: {
     height: 100,
-    backgroundColor: '#dbead5',
+    backgroundColor: '#DCDCDC',
     borderTopRightRadius: 20,
     borderTopLeftRadius: 30,
     flexDirection: 'row',
@@ -247,4 +246,5 @@ const styles = StyleSheet.create({
     elevation: 6,
   },
   
+
   });

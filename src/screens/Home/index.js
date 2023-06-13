@@ -135,7 +135,7 @@ export default function Home({ navigation }) {
   const [userEmail, setUserEmail] = useState('');
   const id = auth.currentUser.uid;
 
-  const [nomes, setNomes] = useState(user.toString());
+ // const [nomes, setNomes] = useState(user.toString());
 
 
   const [modalVisible, setModalVisible] = useState(false);

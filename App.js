@@ -7,10 +7,12 @@ import Login from './src/screens/Login';
 import Register from './src/screens/Register';
 import Home from './src/screens/Home';
 import Add from './src/screens/Mov';
-
+import Favoritos from './src/screens/favoritos'
 
 import Detalhes from './src/screens/Detalhes';
 import Compra from './src/screens/Compra';
+import Perfil from './src/screens/Perfil';
+import Update from './src/screens/Update'
 
 //import Notificacao from './src/screens/Notificacao';
 import Imagens from './src/screens/Imagens';
@@ -96,7 +98,7 @@ function Tabs(){
     }
   }
   />
-    <Tab.Screen name="Favoritos" component={Add} options={{
+    <Tab.Screen name="Favoritos" component={Favoritos} options={{
       
       tabBarIcon: ({focused}) => (
         <View style={{alignItems:'center',justifyContent:'center', top:2}}>
@@ -202,6 +204,9 @@ export default function App() {
         <Stack.Screen name='notificacao' component={Notificacao} options={{headerShown: false}}/>
         {/* <Stack.Screen name="Imagens" component={Imagens}/> */}
         <Stack.Screen name="Filter" component={Filter}/>
+        <Stack.Screen name="Perfil" component={Perfil}/>
+        <Stack.Screen name="Favoritos" component={Favoritos}/>
+        <Stack.Screen name="Update" component={Update}/>
       </Stack.Navigator>
       
       

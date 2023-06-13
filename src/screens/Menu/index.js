@@ -41,6 +41,10 @@ const CustomModal = ({visible, closeModal}) => {
     async function defNome(){
         await setNomes(user[0]['nome'])
       };
+
+    function goPerfil(){
+        navigation.navigate('Perfil',user)
+    }
     
     useEffect(() => {
         function dados() {
@@ -89,7 +93,7 @@ const CustomModal = ({visible, closeModal}) => {
                     
                     <View style={{ flexDirection: 'column', justifyContent: 'center', paddingTop: 10 }}>
 
-                        <TouchableOpacity onPress={LogOff}
+                        <TouchableOpacity onPress={goPerfil}
                             style={{
                                 flexDirection: 'row',
                                 paddingVertical: 10,
@@ -97,7 +101,7 @@ const CustomModal = ({visible, closeModal}) => {
                                 height: 40, width: '100%', justifyContent: 'flex-start', elevation: 8, borderRadius: 10, marginBottom: 10, paddingLeft: 10
                             }}>
                             <AntDesign name="user" size={22} color="black" />
-                            <Text style={{paddingLeft: 10}}>Perfil</Text>
+                            <Text style={{paddingLeft: 10}}>Meu Perfil</Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity
