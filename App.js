@@ -201,12 +201,12 @@ export default function App() {
         <Stack.Screen name="Add" component={Add} options={{headerShown: false}}/>
         <Stack.Screen name="Detalhes" component={Detalhes} />
         <Stack.Screen name= "Compra" component={Compra}/>
-        <Stack.Screen name='notificacao' component={Notificacao} options={{headerShown: false}}/>
+        <Stack.Screen name='notificacao' component={Notificacao} options={{headerShown: true, title: 'Notificaçãoes'}}/>
         {/* <Stack.Screen name="Imagens" component={Imagens}/> */}
         <Stack.Screen name="Filter" component={Filter}/>
         <Stack.Screen name="Perfil" component={Perfil}/>
         <Stack.Screen name="Favoritos" component={Favoritos}/>
-        <Stack.Screen name="Update" component={Update}/>
+        <Stack.Screen name="Update" component={Update} options={{title: 'Atualização de dados'}}/>
       </Stack.Navigator>
       
       

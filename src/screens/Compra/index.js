@@ -81,7 +81,7 @@ export default function Comprar({route}){
                 <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', padding: 15,marginTop:20 }}>
                     <TouchableOpacity
                         onPress={() => creator()}
-                        style={{ backgroundColor: '#32CD32', width: 180, alignItems: 'center', justifyContent: 'center', height: 48, borderRadius: 12, borderWidth: 1, borderColor: '#2F4F4F'}}><Text style={{ fontWeight: '400', fontSize: 20, color: '#333333', padding: 5 }}>COMPRAR</Text>
+                        style={{ backgroundColor: '#32CD32', width: 180, alignItems: 'center', justifyContent: 'center', height: 48, borderRadius: 12, borderWidth: 0, borderColor: '#2F4F4F'}}><Text style={{ fontWeight: '400', fontSize: 20, color: '#333333', padding: 5 }}>COMPRAR</Text>
                         
                     </TouchableOpacity>
                 </View>
@@ -123,13 +123,14 @@ const styles = StyleSheet.create({
     //     fontSize: 20,
     // },
     input: {
-        width: '90%',
-        height: 40,
-        borderColor: '#000000',
-        borderBottomWidth: 1,
-        marginBottom: 36,
-        fontSize: 18
-    },
+        backgroundColor: "#F6F7FB",
+        height: 58,
+        marginBottom: 20,
+        fontSize: 16,
+        borderRadius: 10,
+        padding: 12,
+        width: '80%'
+      },
     view: {
         flex: 1,
         //paddingHorizontal: 15,

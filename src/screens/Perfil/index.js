@@ -26,6 +26,7 @@ export default function Perfil({navigation,route}){
 
                        
                             <View style={styles.itens}>
+                                
                                 <FontAwesome name="user" size={24} color="black" />
                                 <Text style={{fontWeight:'bold'}}>  {item.nome}</Text>
                             </View>

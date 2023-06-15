@@ -10,6 +10,8 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 export default function Add() {
 
+    const [cor, setCor] = useState('#333');
+
     const [ preco, setPreco ] = useState('');
     const [ desc, setDesc ] = useState('');
     const [titulo, setTitulo] = useState('');
@@ -84,6 +86,8 @@ export default function Add() {
             //envia o arquivo pro storage
             const storageRef = ref(storage, 'img/'+Date.now());
 
+            
+
             const uploadTask = uploadBytesResumable(storageRef, blobImage);
 
             // Register three observers:
@@ -129,7 +133,7 @@ export default function Add() {
  return (
     <View style={{alignContent:'center',alignItems:'center', marginTop:10}}>
         <View style={{marginTop:20}}>
-        <AntDesign name="isv" size={80} color="green" />
+        <AntDesign name="isv" size={80} color="#32CD32" />
         </View>
         <Text style={styles.header}>Cadastro de Produto</Text>
 
@@ -157,35 +161,36 @@ export default function Add() {
         />
         <Text style={styles.txtButton2}>Selecione o tipo do produto</Text>
 
-        <View style={{flexDirection:'row'}}>
+        <View style={{flexDirection:'row', padding: 10, justifyContent: 'space-around'}}>
              <Button
-                 onPress={()=>setTipo("Futa")}
-                 title="Frutas"
-                 color="#841584"
+                 onPress={()=>{setTipo("Fruta"); setCor('#FF6347')}}
+                 title="Fruta"
+                 color="#FF6347"
                  accessibilityLabel="seu produto é um tipo de fruta"
              />
              <Button
-                 onPress={()=>setTipo("Verdura")}
+                 onPress={()=>{setTipo("Verdura"); setCor("#228B22")}}
                  title="Verdura"
-                 color="gray"
+                 color="#228B22"
                  accessibilityLabel="Marque esta opção se seu produto for un tipo de verdura"
              />
              <Button
-                 onPress={()=>setTipo("Legume")}
+                 onPress={()=>{setTipo("Legume"); setCor('#FF8C00')}}
                  title="Legume"
-                 color="black"
+                 color="#FF8C00"
                  accessibilityLabel="Marque esta opção se seu produto for um tipo de legume"
              />
              <Button
-                 onPress={()=>setTipo("Grão")}
+                 onPress={()=>{setTipo("Grão"); setCor('#CD853F')}}
                  title=" Grão "
-                 color="green"
+                 color="#CD853F"
                  accessibilityLabel="Marque esta opção se seu produto for um tipo de grão"
              />
         </View>
 
-        <View>
-            <Text style={styles.txtButton2}>Tipo selecionado: {tipo}</Text>
+        <View style={{flexDirection: 'row'}}>
+            <Text style={{color: '#333', fontSize: 18, fontWeight: '500'}}>Tipo selecionado:</Text>
+            <Text style={{color: cor, fontSize: 18, fontWeight: '500'}}>{tipo}</Text>
         </View>
         
         
@@ -195,7 +200,7 @@ export default function Add() {
             //"<TextInput style={styles.input} placeholder="Titulo do arquivo selecionado"/>"
             }
             <TouchableOpacity style={styles.button2}onPress={pickImage}><Text style={{fontWeight:"bold"}}>   Carregar Imagem  </Text></TouchableOpacity>
-            <Text style={{color:'green', fontWeight:'bold'}}>{completo}</Text>
+            <Text style={{color:'#32CD32', fontWeight:'bold'}}>{completo}</Text>
         </View>
 
    
@@ -203,7 +208,7 @@ export default function Add() {
         <TouchableOpacity onPress={()=>creator()}
             style={styles.button}
         >
-            <Text style={styles.txtButton}>Adicionar</Text>
+            <Text style={{color: '#333', fontWeight: 'bold', fontSize: 18}}>Adicionar</Text>
         </TouchableOpacity>
         
 
@@ -256,15 +261,16 @@ const styles = StyleSheet.create({
         padding: 10,
       },
       input3: {
-        width: '80%',
-        height: 40,
-        borderColor: '#000000',
-        borderBottomWidth: 2,
-        marginBottom: 36,
-        fontSize: 20
-    },
+        backgroundColor: "#F6F7FB",
+        height: 58,
+        marginBottom: 20,
+        fontSize: 16,
+        borderRadius: 10,
+        padding: 12,
+        width: '80%'
+      },
     button: {
-        backgroundColor: '#82C043',
+        backgroundColor: '#32CD32',
         width: '80%',
         height: 50,
         justifyContent: 'center',
@@ -273,7 +279,7 @@ const styles = StyleSheet.create({
         borderRadius: 10
     },
     button2: {
-        backgroundColor: '#82C043',
+        backgroundColor: '#32CD32',
         width: '50%',
         height: 45,
         justifyContent: 'center',
@@ -281,15 +287,6 @@ const styles = StyleSheet.create({
         marginTop: 5,
         borderRadius: 10,
         fontWeight:'bold'
-    },
-     button: {
-        backgroundColor: '#32CD32',
-        width: '90%',
-        height: 50,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 10,
-        borderRadius: 10
     },
     txtButton2: {
         color: 'black',
@@ -300,7 +297,7 @@ const styles = StyleSheet.create({
         alignItems:'start',
         flexDirection:'row',
         justifyContent:'space-between',
-        padding:5,
+        padding: 10,
 
     }
 });

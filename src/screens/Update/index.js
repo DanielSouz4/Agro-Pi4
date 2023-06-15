@@ -28,9 +28,9 @@ export default function Update({navigation,route}){
 
     return(
         <View style={styles.view}>
-            
-            <FontAwesome5 name="edit" size={60} color="green" />
-            <Text style={{fontSize:30,color:'green',fontWeight:'bold',elevation:10,textShadowColor:'black',textShadowRadius:2,marginBottom:40}}>Atualizar Dados</Text>
+            <View style={{marginTop: 15}}></View>
+            <FontAwesome5 name="edit" size={60} color="green"/>
+            <Text style={{fontSize:30,color:'#32CD32',fontWeight:'bold',elevation:10,textShadowColor:'black',textShadowRadius:2,marginBottom:40}}>Atualizar Dados</Text>
             <TextInput
                 value={nome}
                 onChangeText={setNome}
@@ -58,7 +58,7 @@ export default function Update({navigation,route}){
             >
                 <Text style={styles.txtButton}>Atualizar</Text>
             </TouchableOpacity>
-            <Text>{data.nome}   ID: {data.id}</Text>
+            <Text style={{marginTop:10}}>{data.nome}   ID: {data.id}</Text>
         </View>
     )
 }
@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
         backgroundColor:'#ffff',
         justifyContent:'space-between',
         alignItems:'center',
+        marginTop: 15
         //alignContent:"center"
 
     },
@@ -119,7 +120,7 @@ const styles = StyleSheet.create({
         flexDirection:'row'
       },
     txtButton: {
-        color: '#FFF',
+        color: '#333',
         fontSize: 18,
         fontWeight: 'bold',
     }

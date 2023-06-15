@@ -9,6 +9,8 @@ import { auth } from '../../components/config';
 import { signOut } from 'firebase/auth';
 import { Feather } from '@expo/vector-icons';
 
+import { useIsFocused } from '@react-navigation/native';
+
 import Modal from '../Menu';
 
 
@@ -147,6 +149,17 @@ export default function Home({ navigation }) {
   const closeModal = () => {
     setModalVisible(false);
   };
+  // Modal vai estar sempre setado como `modalVisible` false para poder abrir novamente, quando entrar em home()
+
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    // Redefinir o estado `modalVisible` como `false` quando a tela Home for focada novamente
+    if (isFocused) {
+      setModalVisible(false);
+    }
+  }, [isFocused]);
+  // fim
 
 
   //pegar nome de usuario e email 
@@ -184,7 +197,7 @@ export default function Home({ navigation }) {
   // })
   // )},[]);
   //fim
-  console.log(data);
+  //console.log(data);
   const fliterPro = index => {
     const currentProducts = data.filter(
       item => item?.tipoProduto?.toUpperCase() == produtosCategorias[index].name.toUpperCase(),
@@ -237,7 +250,7 @@ export default function Home({ navigation }) {
         setData(users);
         //setList(data)
       });
-  }, []);
+  }, [data]);
 
 
   useEffect(() => {
@@ -293,8 +306,8 @@ export default function Home({ navigation }) {
           Seja Bem vindo!
         </Text>
 
-        <TouchableOpacity onPress={openModal} style={{ height: 30, width: 30, borderRadius: 16, backgroundColor: 'gray' }}>
-          <AntDesign name="user" size={28} color="white" />
+        <TouchableOpacity onPress={openModal} style={{ height: 40, width: 40, borderRadius: 20, backgroundColor: 'gray' }}>
+          <AntDesign name="user" size={38} color="white" />
         </TouchableOpacity>
         <Modal visible={modalVisible} closeModal={closeModal} />
       </View>

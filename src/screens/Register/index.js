@@ -31,6 +31,7 @@ export default function Register({ navigation }) {
             email:email,
             telefone:tel,
           }).then(()=>{
+            Login,
             console.log("Valor adicionado")
 
           }).catch((error) => {
@@ -46,8 +47,9 @@ export default function Register({ navigation }) {
         .then(value =>{
             Login();
             setId(auth.currentUser.uid);
-            alert("Cadastrado com sucesso!! \n" + id)
             perfil();
+            alert("Cadastrado com sucesso!! \n" + id),
+            ()=>navigation.navigate('Login')
         }).catch(error => alert(error));
     };
     /*
@@ -79,7 +81,7 @@ export default function Register({ navigation }) {
         <View style={styles.inner}>
 
 
-            <Text style={styles.header}>Cadastro de usuario</Text>
+            <Text style={styles.header}>Cadastro de usuário</Text>
 
             <TextInput
                 value={email}
@@ -158,24 +160,26 @@ const styles = StyleSheet.create({
         marginTop:25
     },
     input: {
-        width: '90%',
-        height: 40,
-        borderColor: '#000000',
-        borderBottomWidth: 1,
-        marginBottom: 36,
-        fontSize: 20
-    },
+        backgroundColor: "#F6F7FB",
+        height: 58,
+        marginBottom: 20,
+        fontSize: 16,
+        borderRadius: 10,
+        padding: 12,
+      },
     button: {
-        backgroundColor: '#82C043',
-        width: '90%',
+        backgroundColor: '#32CD32',
+        width: '80%',
         height: 50,
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 10,
-        borderRadius: 10
+        borderRadius: 10,
+        left: '11%'
+        
     },
     txtButton: {
-        color: '#FFF',
+        color: '#333',
         fontSize: 18,
         fontWeight: 'bold',
     }

@@ -160,14 +160,14 @@ export default function Detalhes({navigation,route}) {
           <Entypo 
             name= {isfavorite ? 'heart':'heart'}
             size={28}
-            color={isfavorite ?'#32CD32':"#fff"}
+            color={isfavorite ?'#32CD32':"#333"}
           />
           </TouchableOpacity>
 
           </View>
           <View style={styles.btn}>
             <TouchableOpacity style={styles.button} onPress={irCompra}>
-            <Text style={{color: 'white', fontWeight: 'bold'}}>
+            <Text style={{color: '#333', fontWeight: 'bold'}}>
               COMPRAR
             </Text>
             </TouchableOpacity>
@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   iconCon: {
-    backgroundColor: '#005C53',
+    backgroundColor: '#32CD32',
     width: 50,
     height: 50,
     borderRadius: 12,
@@ -230,7 +230,7 @@ const styles = StyleSheet.create({
     marginRight: 15,
   },
   btn: {
-    backgroundColor: '#005C53',
+    backgroundColor: '#32CD32',
     flex: 1,
     height: 50,
     borderRadius: 12,
