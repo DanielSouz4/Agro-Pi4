@@ -134,7 +134,7 @@ export default function Detalhes({navigation,route}) {
             </View>
           </View>
           <Text style={{fontSize: 23,fontWeight: '600'}} >
-            {produto.preco} R$
+          R$ {produto.preco} 
           </Text>
           <View style={{marginTop: 5, flexDirection: 'row',alignItems:'center',justifyContent:'flex-start'}}>
              
@@ -146,11 +146,7 @@ export default function Detalhes({navigation,route}) {
 
            </View>
           <Text style={styles.detailsText}>
-            {/* {produto.descricao} */}Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries.
+            {produto.descricao}
           </Text>
 
            {/*footer */}

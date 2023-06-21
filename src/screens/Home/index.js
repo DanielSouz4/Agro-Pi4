@@ -59,8 +59,8 @@ const Card = ({ produto, navigation }) => {
           </View>
 
 
-          <Text style={{ fontSize: 17, marginTop: 5, marginLeft: 23, fontWeight: 'bold' }}>
-            {produto?.preco}R$
+          <Text style={{ fontSize: 17, marginTop: 5, marginLeft: 0, fontWeight: 'bold' }}>
+          R$ {produto?.preco}
           </Text>
 
 
@@ -408,7 +408,7 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     flex: 1,
-    backgroundColor: '#DCDCDC',
+    backgroundColor: '#f5f5f5',
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
     marginTop: 20,
@@ -435,6 +435,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "#005C53"
+    // elevation: 1
 
   },
   categoryBtnName: {
@@ -447,10 +450,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 20,
+    backgroundColor: 'transparent'
   },
   cardDetailsContainer: {
     height: 120,
-    backgroundColor: 'white',
+    backgroundColor: '#fff',
     flex: 1,
     borderTopRightRadius: 10,
     borderBottomRightRadius: 10,
@@ -460,7 +464,7 @@ const styles = StyleSheet.create({
   cardImageContainer: {
     height: 150,
     width: 140,
-    backgroundColor: '#F0EFE8',
+    backgroundColor: '#fff',
     borderRadius: 20,
   },
   ratingText: {

@@ -18,8 +18,9 @@ import Update from './src/screens/Update'
 import Imagens from './src/screens/Imagens';
 import Filter from './src/screens/Filter';
 
-import Notificacao from './src/screens/Notificacao'
+import Notificacao from './src/screens/Notificacao';
 import { ScreenStackHeaderSearchBarView } from 'react-native-screens';
+import Sobre from './src/screens/Sobre'
 
 
 
@@ -207,6 +208,7 @@ export default function App() {
         <Stack.Screen name="Perfil" component={Perfil}/>
         <Stack.Screen name="Favoritos" component={Favoritos}/>
         <Stack.Screen name="Update" component={Update} options={{title: 'Atualização de dados'}}/>
+        <Stack.Screen name='Sobre' component={Sobre} />
       </Stack.Navigator>
       
       

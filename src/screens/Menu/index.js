@@ -116,15 +116,15 @@ const CustomModal = ({visible, closeModal}) => {
                             <Text style={{paddingLeft: 10}}>Favoritos</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity
+                        <TouchableOpacity onPress={() => navigation.navigate('Sobre')}
                             style={{
                                 flexDirection: 'row',
                                 paddingVertical: 10,
                                 backgroundColor: '#fff',
                                 height: 40, width: '100%', justifyContent:  'flex-start', elevation: 8, borderRadius: 10, marginBottom: 10, paddingLeft: 10
                             }}>
-                            <Octicons name="gear" size={20} color="black" />          
-                            <Text style={{paddingLeft: 10}}>Configurações</Text>
+                            <AntDesign name="profile" size={20} color="black" />         
+                            <Text style={{paddingLeft: 10}}>Sobre</Text>
                         </TouchableOpacity>
 
                         
